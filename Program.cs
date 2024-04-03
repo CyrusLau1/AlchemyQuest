@@ -20,7 +20,7 @@ namespace AlchemyQuest
         public decimal damage = 1;
         public decimal health = 50;
         public decimal hitrate = 67;
-        public int fireballStrength = 1;
+        public int damageMulti = 1;
         
         public static void Stats()
         {
@@ -28,7 +28,7 @@ namespace AlchemyQuest
             // Display player stats (health, damage, hitrate)
             Program.Print($"{Program.currentPlayer.name}'s Stats");
             Console.WriteLine("=================================");
-            Console.WriteLine($"Damage: {Program.currentPlayer.damage * Program.currentPlayer.fireballStrength}");
+            Console.WriteLine($"Damage: {Program.currentPlayer.damage * Program.currentPlayer.damageMulti}");
             Console.WriteLine($"Health: {Program.currentPlayer.health}");
             Console.WriteLine($"Hit Rate: {Program.currentPlayer.hitrate}%");
             Console.WriteLine("=================================");
@@ -381,7 +381,7 @@ namespace AlchemyQuest
                     Console.WriteLine("Hitrate +10%!");
                     Console.WriteLine("All attacks deal 2x damage! \n...");
                     Program.currentPlayer.hitrate += 10;
-                    Program.currentPlayer.fireballStrength += 1;
+                    Program.currentPlayer.damageMulti += 1;
                     Console.ReadKey();
                     Console.Clear();
                     cauldron[3] = "X Brewed X";
@@ -562,7 +562,7 @@ namespace AlchemyQuest
             r = hitrateE;
             
             // Player stat adjustments
-            decimal attack = Program.currentPlayer.damage * Program.currentPlayer.fireballStrength;
+            decimal attack = Program.currentPlayer.damage * Program.currentPlayer.damageMulti;
             decimal currenthealth = Program.currentPlayer.health;
             // Battle enemies
             while(h > 0)
