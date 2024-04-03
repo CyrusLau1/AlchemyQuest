@@ -15,7 +15,7 @@ namespace AlchemyQuest
 
     public class Player
     {   
-        // Player stats
+        // Player default stats
         public string? name;
         public decimal damage = 1;
         public decimal health = 50;
@@ -1296,7 +1296,7 @@ namespace AlchemyQuest
             Console.WriteLine("=================================");
             // Display Basement options
             Console.WriteLine("[1] Search the basement");
-            Console.WriteLine("[2] Read Master Alaric's Diary");
+            Console.WriteLine("[2] Read Master Alaric's Diary"); // CHANGE LATER: If quest unfinished: show [2] ???, otherwise show diary.
             Console.WriteLine("[3] Go back up to Lab");
             Console.WriteLine("=================================");
             Console.Write("Your choice: ");
@@ -1310,12 +1310,12 @@ namespace AlchemyQuest
                     Harvesting.SearchBasement();
                     break;
 
-                case "2":
+                case "2": // CHANGE LATER: cases: unfinished quest + finished quest
                 // Player chooses to read diary
                     Program.Print("You found Master Alaric's Diary and decide to read it. \n...");
                     Console.ReadKey();
                     Console.Clear();
-                    Locations.ArcaneRuins(); // PLACEHOLDER FOR DIARY
+                    Locations.ArcaneRuins(); // PLACEHOLDER FOR DIARY!!!!!!!!!!!!!!
                     break;
                 
                 case "3":
