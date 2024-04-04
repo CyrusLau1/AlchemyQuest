@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace AlchemyQuest
 {
-
     public class Player
     {   
+        
         // Player default stats
         public string? name;
         public decimal damage = 1;
@@ -37,6 +37,7 @@ namespace AlchemyQuest
             Console.Clear();
             AlchemyLab.Lab();
         }
+        
 
     } // end class Player
 
@@ -85,6 +86,10 @@ namespace AlchemyQuest
             }
             // Generate game lore
             Console.WriteLine("Press Enter to continue...");
+            while (Console.KeyAvailable) 
+            {
+                Console.ReadKey(false);
+            }
             Console.ReadKey();
             Console.Clear();
             Print("One day, a malicious creature called the Astral Enigma appears. It's after something in Master Alaric's experiments and ends up cursing him, taking him to a mysterious place called the Ethereal Summit. \n...");
@@ -94,7 +99,6 @@ namespace AlchemyQuest
             Print("Get ready to explore the realm of Eldralore, gather ingredients from different magical locations, and brew potions to strengthen yourself to defeat enemies in the hope of saving Master Alaric and keeping Eldralore safe. Let the adventure begin! \n...");
             Console.ReadLine();
             Console.Clear();
-            
             // Start at the Lab
             AlchemyLab.Lab();
         
@@ -123,11 +127,11 @@ namespace AlchemyQuest
                 Console.WriteLine("=================================");
                 Console.Write("Your choice: ");
                 string? labChoice = Console.ReadLine();
-                Console.Clear();
 
                 if (labChoice == "1")
                 {
                     // Player chooses to brew potions
+                    Console.Clear();
                     Program.Print("You walk to the cauldron to brew potions. \n...");
                     Console.ReadKey();
                     Console.Clear();
@@ -139,6 +143,7 @@ namespace AlchemyQuest
                 else if (labChoice =="2")
                 {
                     // Player chooses to enter Basement
+                    Console.Clear();
                     Program.Print("You enter the mysterious Basement. \n...");
                     Console.ReadKey();
                     Console.Clear();
@@ -149,6 +154,7 @@ namespace AlchemyQuest
                 else if (labChoice == "3")
                 {   
                     // Player chooses to check inventory
+                    Console.Clear();
                     Program.Print("You look inside your magical ingredient pouch. \n...");
                     Console.ReadKey();
                     PlayerInventory.DisplayInventory();
@@ -159,6 +165,7 @@ namespace AlchemyQuest
                 else if (labChoice == "4")
                 {
                     // Player chooses to check brewed potions
+                    Console.Clear();
                     Program.Print("You try to remember which potions you have brewed. \n...");
                     Console.ReadKey();
                     BrewPotions.BrewedPotions();
@@ -168,6 +175,7 @@ namespace AlchemyQuest
                 else if (labChoice == "5")
                 {
                     // Player chooses to check stats
+                    Console.Clear();
                     Program.Print("You stand on a magic circle to check your stats. \n...");
                     Console.ReadKey();
                     Player.Stats();
@@ -177,6 +185,7 @@ namespace AlchemyQuest
                 else if (labChoice == "6")
                 {
                     // Player chooses to exit Lab
+                    Console.Clear();
                     Program.Print("As you exit the Lab, you slowly approach the Crossroads. \n...");
                     Console.ReadKey();
                     Console.Clear();
@@ -642,8 +651,9 @@ namespace AlchemyQuest
                     {
                         // Successfully flees and goes back to original location
                         Console.WriteLine("You used Master Alaric's Shadow Movement Technique and successfully fled the battle!");
-                        Console.WriteLine("You heal yourself with a healing spell ...");
+                        Console.WriteLine("You heal yourself back to max health with a healing spell. \n...");
                         Console.ReadKey();
+                        Console.Clear();
                         break;
                     }
                     else if (fleeChance > 75)
@@ -652,29 +662,26 @@ namespace AlchemyQuest
                         Console.WriteLine($"As you sprint away from the {n}, its strike catches you in the back, sending you sprawling onto the ground.");
                         Console.WriteLine($"You lose {d} health from its attack and failed to escape.");
                         currenthealth -= d;
-        
+
                     }
+                }
                 else
                 {   
                     // Invalid choice
                     Program.Print("Error!", 25);
                     Console.WriteLine("Please enter an integer from 1 to 3.");
-                    Console.ReadKey();
-                    
-                }
-
                 }
                 Console.WriteLine("...");
                 Console.ReadKey();
                 Console.Clear();
-                if (currenthealth <= 0)
-                {
-                    // Player dies
-                    Program.Print($"GAME OVER... You have been slain by the {n}...", 150);
-                    Console.ReadKey();
-                    System.Environment.Exit(0);
-
-                }
+            }
+            
+            if (currenthealth <= 0)
+            {
+                // Player dies
+                Program.Print($"GAME OVER... You have been slain by the {n}...", 150);
+                Console.ReadKey();
+                System.Environment.Exit(0);
 
             }
 
@@ -882,7 +889,6 @@ namespace AlchemyQuest
 
                 case "5":
                 // Player chooses to return to Lab
-                    Console.Clear();
                     Program.Print("You decide to return to the Alchemy Lab. \n...");
                     Console.ReadKey();
                     Console.Clear();
@@ -892,7 +898,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter a number from 1 to 5. \n...");
+                    Console.WriteLine("Please enter an integer from 1 to 5. \n...");
                     Console.ReadKey();
                     Console.Clear();
                     Crossroads();
@@ -969,7 +975,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter a number from 1 to 5. \n...");
+                    Console.WriteLine("Please enter an integer from 1 to 5. \n...");
                     Console.ReadKey();
                     Console.Clear();
                     MysticForest();
@@ -1028,7 +1034,6 @@ namespace AlchemyQuest
 
                 case "4":
                 // Player chooses to return to Crossroads
-                    Console.Clear();
                     Program.Print("You decide to return to the Crossroads. \n...");
                     Console.ReadKey();
                     Console.Clear();
@@ -1037,7 +1042,6 @@ namespace AlchemyQuest
                 
                 case "5":
                 // Player chooses to return to Lab
-                    Console.Clear();
                     Program.Print("You decide to return to the Alchemy Lab. \n...");
                     Console.ReadKey();
                     Console.Clear();
@@ -1047,7 +1051,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter a number from 1 to 5. \n...");
+                    Console.WriteLine("Please enter an integer from 1 to 5. \n...");
                     Console.ReadKey();
                     Console.Clear();
                     StarlightMeadow();
@@ -1108,7 +1112,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter a number from 1 to 5. \n...");
+                    Console.WriteLine("Please enter an integer from 1 to 5. \n...");
                     Console.ReadKey();
                     Console.Clear();
                     SerenityLake(); // Repeat the Sapphire Serenity Lake choice
@@ -1159,7 +1163,6 @@ namespace AlchemyQuest
                 
                 case "5":
                 // Player chooses to return to Lab
-                    Console.Clear();
                     Program.Print("You decide to return to the Alchemy Lab. \n...");
                     Console.ReadKey();
                     AlchemyLab.Lab(); 
@@ -1168,7 +1171,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter a number from 1 to 5. \n...");
+                    Console.WriteLine("Please enter an integer from 1 to 5. \n...");
                     Console.ReadKey();
                     Console.Clear();
                     LunarCaverns();
@@ -1200,7 +1203,6 @@ namespace AlchemyQuest
 
                 case "2":
                 // Player chooses to continue to Ethereal Summit
-                    Console.Clear();
                     Program.Print("You decide to continue to the Ethereal Summit. \n...");
                     Console.ReadKey();
                     Console.Clear();
@@ -1215,7 +1217,6 @@ namespace AlchemyQuest
 
                 case "4":
                 // Player chooses to return to Crossroads
-                    Console.Clear();
                     Program.Print("You decide to return to the Crossroads. \n...");
                     Console.ReadKey();
                     Console.Clear();
@@ -1223,8 +1224,7 @@ namespace AlchemyQuest
                     break;
                 
                 case "5":
-                //// Player chooses to return to Lab
-                    Console.Clear();
+                // Player chooses to return to Lab
                     Program.Print("You decide to return to the Alchemy Lab. \n...");
                     Console.ReadKey();
                     Console.Clear();
@@ -1234,7 +1234,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter a number from 1 to 5. \n...");
+                    Console.WriteLine("Please enter an integer from 1 to 5. \n...");
                     Console.ReadKey();
                     Console.Clear();
                     ArcaneRuins();
@@ -1281,7 +1281,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter a number from 1 to 3. \n...");
+                    Console.WriteLine("Please enter an integer from 1 to 3. \n...");
                     Console.ReadKey();
                     Console.Clear();
                     EtherealSummit(); 
@@ -1329,7 +1329,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter a number from 1 to 3. \n...");
+                    Console.WriteLine("Please enter an integer from 1 to 3. \n...");
                     Console.ReadKey();
                     Console.Clear();
                     Basement();
