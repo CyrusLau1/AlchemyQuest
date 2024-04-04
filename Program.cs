@@ -17,10 +17,10 @@ namespace AlchemyQuest
         
         // Player default stats
         public string? name;
-        public decimal damage = 1;
-        public decimal health = 50;
-        public decimal hitrate = 67;
-        public int damageMulti = 1;
+        public decimal damage = 1; // Player attack
+        public decimal health = 50; // Player health
+        public decimal hitrate = 67; // Player hitrate in %, i.e. defualt is 67%)
+        public int damageMulti = 1; // Damage multi used later (x2 from a potion)
         
         public static void Stats()
         {
@@ -76,15 +76,15 @@ namespace AlchemyQuest
             {
                 // Error if player name is too long, repeats
                 Print("[!] Your name is too long. Max length: 20 characters. \n...");
-                Console.ReadKey();
-                Console.Clear();
+                Console.ReadKey(); // Wait until player presses Enter (or any other key)
+                Console.Clear(); // Clears current console
                 Start();
             }
             else
             {
                 Print($"In the magical land of Eldralore, you, {currentPlayer.name}, are a keen apprentice to the wise alchemist, Master Alaric.");
             }
-            // Generate game lore
+            // Generate game lore/prologue
             Console.WriteLine("Press Enter to continue...");
             Console.ReadKey();
             Console.Clear();
@@ -121,7 +121,7 @@ namespace AlchemyQuest
                 Console.WriteLine("[5] Check Player Stats");
                 Console.WriteLine("[6] Exit Lab & Explore");
                 Console.WriteLine("=================================");
-                Console.Write("Your choice: ");
+                Console.Write("Your choice: "); // Asks player for choice
                 string? labChoice = Console.ReadLine();
 
                 if (labChoice == "1")
