@@ -86,10 +86,6 @@ namespace AlchemyQuest
             }
             // Generate game lore
             Console.WriteLine("Press Enter to continue...");
-            while (Console.KeyAvailable) 
-            {
-                Console.ReadKey(false);
-            }
             Console.ReadKey();
             Console.Clear();
             Print("One day, a malicious creature called the Astral Enigma appears. It's after something in Master Alaric's experiments and ends up cursing him, taking him to a mysterious place called the Ethereal Summit. \n...");
@@ -1545,7 +1541,7 @@ namespace AlchemyQuest
             }
             else
             {
-                Console.WriteLine("Unfortunately, you were covered in tons of spiderwebs while searching. \n...");
+                Console.WriteLine("Unfortunately, you were covered in tons of spiderwebs while searching. \nYou obtained 1 Silky Spiderweb. \n...");
                 PlayerInventory.AddIngredient("Silky Spiderwebs", 1);
                 Console.ReadKey();
             }
