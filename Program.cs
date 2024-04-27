@@ -51,12 +51,7 @@ namespace AlchemyQuest
         {
             // Start the game
             Start();
-            if (Program.currentPlayer.lives <= 0)
-            {
-                Print("GAME OVER...", 1500);
-                Program.ReadKey();
-                System.Environment.Exit(0);
-            }
+
         }
 
         public static void Print(string text, int speed = 1)
@@ -77,7 +72,7 @@ namespace AlchemyQuest
             {
                 Console.ReadKey(false);
             }
-        Console.ReadKey();
+            Console.ReadKey();
         }
 
         public static void Start()
@@ -99,42 +94,27 @@ namespace AlchemyQuest
             {
                 // Error if player name is too long, repeats
                 Print("[!] Your name is too long. Please enter a valid name. Max length: 20 characters. \n...");
+                Console.WriteLine("\n[Press Enter whenever \"...\" is displayed to continue.]");
                 Program.ReadKey(); // Wait until player presses Enter (or any other key)
                 Console.Clear(); // Clears current console
                 Start();
             }
             else if (!Regex.IsMatch(currentPlayer.name, namePattern))
             {
-                Console.WriteLine("[!] Your name can only contain letters of the English alphabet, numbers, spaces, and underscores. Please enter a valid name.");
+                Console.WriteLine("[!] Your name can only contain alphanumeric characters (letters of the English alphabet & numbers), spaces, and underscores. Please enter a valid name.\n...");
+                Console.WriteLine("\n[Press Enter whenever \"...\" is displayed to continue.]");
+                Program.ReadKey(); 
+                Console.Clear(); 
                 Start();
             }
             else
             {
-                Print($"[Mysterious Voice]: In the magical land of Eldralore, you, {currentPlayer.name}, are a keen apprentice to the wise alchemist, Master Alaric.");
+                Print($"[Mysterious Voice]: In the magical land of Eldralore, you, {currentPlayer.name}, are a keen apprentice to the wise alchemist, Master Alaric.\n...");
             }
             // Generate game lore/prologue
-            Console.WriteLine("... \n[Press Enter whenever \"...\" is displayed to continue.]");
+            Console.WriteLine("[Press Enter whenever \"...\" is displayed to continue.]");
             Program.ReadKey();
             Console.Clear();
-
-
-            // FOR TESTING FOR TESTING FOR TESTING
-            // FOR TESTING FOR TESTING FOR TESTING
-            ///BrewPotions.brewedpotions.Add("Arcane Spirit Elixir");
-            //BrewPotions.brewedpotions.Add("Holy Elixir of Restoration");
-            //currentPlayer.damage = 1000;
-            //currentPlayer.health = 1000;
-            //currentPlayer.hitrate = 1000;
-            //PlayerInventory.AddIngredient("Ancient Grimoire of Fury", 1);
-            //PlayerInventory.AddIngredient("Poseidon's Grimoire of Fury", 1);
-            //PlayerInventory.AddIngredient("Gaia's Grimoire of Fury", 1);
-            //Locations.StarlightMeadow();
-            // FOR TESTING FOR TESTING FOR TESTING
-            // FOR TESTING FOR TESTING FOR TESTING
-
-
-            
-
 
             Print("Harvesting...", 50);
             Console.Clear();
@@ -142,21 +122,21 @@ namespace AlchemyQuest
             Console.Clear();
             Print("Harvesting...", 50);
             Console.Clear();
-            Print("[Mysterious Voice]: In the heart of the Mystic Forest, you are gathering ingredients for potion brewing, surrounded by the gentle hum of magic. But the tranquility is shattered by a thunderous blast, ripping through the serenity. \n...");
+            Print("In the heart of the Mystic Forest, you are gathering ingredients for potion brewing, surrounded by the gentle hum of magic. But the tranquility is shattered by a thunderous blast, ripping through the serenity. \n...");
             Program.ReadKey();
-            Print("[Mysterious Voice]: Hurrying back to the Alchemy Lab, your heart sinks at the sight of devastation. The lab, once a haven of knowledge, now lies in ruins, a victim of dark forces. With trembling hands, you conjure a spell to glimpse into the past. \n...");
+            Print("Hurrying back to the Alchemy Lab, your heart sinks at the sight of devastation. The lab, once a haven of knowledge, now lies in ruins, a victim of dark forces. With trembling hands, you conjure a spell to glimpse into the past. \n...");
             Program.ReadKey();
-            Print("[Mysterious Voice]: The mist of magic reveals a cloaked figure, their presence ominous as they seize Master Alaric and vanish into the night. Determination courses through your mind as you vow to repair the lab and rescue master from the clutches of darkness. \n...");
+            Print("The mist of magic reveals a cloaked figure, their presence ominous as they capture Master Alaric and vanish into the night. Determination courses through your mind as you vow to repair the lab and rescue master from the clutches of darkness. \n...");
             Program.ReadKey();
-            Print("[Mysterious Voice]: This is just the beginning of your journey. With resolve in your heart, you set forth to uncover the truth and restore peace to Eldralore. \n...");
+            Print("This is just the beginning of your journey. With resolve in your heart, you set forth to uncover the truth and restore peace to Eldralore. \n...");
             Program.ReadKey();
             Console.Clear();
             // Repair the lab
             RepairLab();
-            // Start at the Lab
             Print("[Mysterious Voice]: Get ready to explore the realm of Eldralore, gather ingredients from different magical locations, and brew potions to strengthen yourself in the hope of defeating enemies to save Master Alaric and keeping Eldralore safe. Let the adventure begin! \n...");
             Program.ReadKey();
             Console.Clear();
+            // Start at Lab
             AlchemyLab.Lab();
         
         }
@@ -164,16 +144,16 @@ namespace AlchemyQuest
         public static void RepairLab()
         {
             // Player must repair the lab to continue
-            Print("[Mysterious Voice]: As you survey the wreckage of the lab, your eyes catch sight of a piece of scrap paper lying amidst the debris. ");
-            Print("[Mysterious Voice]: Picking it up, you find a jumble of letters hastily scribbled upon it: \"L C H Y E A M.\" \n...");
+            Print("As you survey the wreckage of the lab, your eyes catch sight of a piece of scrap paper lying amidst the debris. ");
+            Print("Picking it up, you find a jumble of letters hastily scribbled upon it: \"L C H Y E A M.\" \n...");
             Program.ReadKey();
-            Print("[Mysterious Voice]: You discover that unscrambling these letters may hold the key to repairing the lab. ");
+            Print("You discover that unscrambling these letters may hold the key to repairing the lab. ");
             Print("[Mysterious Voice]: Unscramble the word and type it here: ");
             string? unscrambledWord = Console.ReadLine()?.ToLower().Trim();
             if (unscrambledWord == "alchemy")
             {
                 Console.Clear();
-                Print("[Mysterious Voice]: The pieces of the lab start to shimmer and fuse together as you chant the word.");
+                Print("The pieces of the lab start to shimmer and fuse together as you chant the word.");
                 Print("[Mysterious Voice]: Congratulations! You've repaired the lab. \n...");
                 Program.ReadKey();
                 Console.Clear();
@@ -214,7 +194,12 @@ namespace AlchemyQuest
                 Program.ReadKey();
                 Program.Print("[Mysterious Voice]: After receiving her reward, you will be able to gain a deeper understanding of the world of Eldralore.\n...");
                 Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Your ultimate goal is to strenghtne yourself enough to defeat the final boss and rescue Master Alaric.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: [SPOILER!]: To get the Good Ending, simply brew the Holy Elixir of Restoration and defeat the Astral Enigma. To get the Bad Ending, defeat the Astral Enigma without brewing the elixir. To get the Secret Ending, complete all the quests and defeat the secret boss, True Astral Enigma.\n...");
+                Program.ReadKey();
                 Program.Print("[Mysterious Voice]: And that's it! Rest assured, my voice will occassionally appear in your mind to provide you with guidance!\n...");
+                Program.ReadKey();
                 Console.Clear();
                 labGuideShown = true;
             }
@@ -302,7 +287,7 @@ namespace AlchemyQuest
                 else{
                     // Invalid choice
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 6. \n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 6. \n...");
                     Program.ReadKey();
                     Console.Clear();
                 }
@@ -337,11 +322,15 @@ namespace AlchemyQuest
             },
             {
                 "Levitas Elixir",
-                "- Grants levitation\n- Increases health by 30\n- Required for Ethereal Summit\n- Recipe:  \n- 1 Bottle (Basement)\n  - 4 Ancient Glyphroot Powder (Ruins)\n  - 2 Moonlight Earthpulse Golem Core (Caverns)\n  - 10 Firefly Essence (Forest)\n  - 3 Lunar Moss (Caverns)"
+                "- Grants levitation\n- Increases base damage by 3\n- Required for Ethereal Summit\n- Recipe:  \n- 1 Bottle (Basement)\n  - 2 Icy Shadowstone Shards (Ruins)\n  - 2 Holy Abyssal Serpent's Fangs (Lake Enemy)\n  - 10 Firefly Essence (Forest)\n  - 3 Lunar Moss (Caverns)"
+            },
+            {
+                "Frost Resistance Potion",
+                "- Provides frost resistance\n- Increases health by 30\n- Required for Ethereal Summit\n- Recipe:  \n- 1 Bottle (Basement)\n  - 4 Ancient Glyphroot Powder (Ruins)\n  - 2 Moonlight Earthpulse Golem Core (Caverns Enemy)\n  - 7 Starlight Dew (Meadow)\n  - 3 Seashell Essence (Lake)"
             },
             {
                 "Holy Elixir of Restoration",
-                "- Dispels curses upon consumption\n- Brewer of the elixir (player) receives a holy blessing, increasing their power\n- Increases base damage by 1 and health by 15\n- [Good ending if brewed; bad ending if not brewed]\n- Recipe:\n  - 1 Bottle (Basement)\n  - 1 Arcane Relic Fragments (Ruins)\n  - 1 Earthpulse Stonefruit (Caverns)\n  - 1 Holy Water (Lake)\n  - 3 Mystic Roots (Forest)\n  - 4 Nebula Dust (Meadow)\n  - 2 Holy Roasted Chicken (Forest Quest)"
+                "- Dispels curses upon consumption\n- Brewer of the elixir (player) receives a holy blessing, increasing their power\n- Increases base damage by 1 and health by 15\n- [Good ending if brewed; bad ending if not brewed]\n- Recipe:\n  - 1 Bottle (Basement)\n  - 1 Arcane Relic Fragments (Ruins)\n  - 1 Earthpulse Stonefruit (Caverns)\n  - 1 Holy Water (Lake)\n  - 3 Mystic Roots (Forest)\n  - 4 Nebula Dust (Meadow)\n  - 1 Holy Roasted Chicken (Forest Quest) [NOT Cursed Roasted Chicken]"
             },
             {
                 "???",
@@ -475,7 +464,7 @@ namespace AlchemyQuest
                 else // Invalid choice
                 {
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer between 1 and 3.\n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 4.\n...");
                     Program.ReadKey();
                     Console.Clear();
                     DisplayDiary();
@@ -828,7 +817,7 @@ namespace AlchemyQuest
                 { 
                     // Invalid choice
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer between 1 and 9.\n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 9.\n...");
                     Program.ReadKey();
                     Console.Clear();
                     
@@ -872,6 +861,21 @@ namespace AlchemyQuest
         // Battle Crazy Cursed Chicken
         public static void BattleChicken()
         {
+            if (!battleGuideShown)
+            {
+                Program.Print("[Mysterious Voice]: Here I am again! Engage in battles by encountering enemies while exploring different locations within the game world.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Cast Fireball: Deal damage to the enemy equivalent to your base damage. This is a reliable option for steadily wearing down your opponent's health.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Mana Shield: Reduce your damage output to 30% of your base damage, but gain a 70% reduction in incoming damage from the enemy. Use this option when facing strong opponents or when your health/enemy's health is low.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Flee Battle: Make a daring escape attempt to exit the battle. There's a 70% chance of success, allowing you to evade the enemy and live to fight another day. However, there's also a 30% chance of failure, resulting in injury and continued combat.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Defeat the enemy by depleting its health to zero to emerge victorious. Each enemy drops different rewards - some are required for potions; some are required for quests, and some enemies have rare drops (grimoires) which further strengthen your character! \n...");
+                Program.ReadKey();
+                Console.Clear();
+                battleGuideShown = true;
+            }
             Program.Print("You encounter a weird-looking chicken on the Crossroads.\n...");
             Program.ReadKey();
             Program.Print("[Crazy Cursed Chicken]: Cluck-cluck-cluck! Cuckoo!!! Cluck-cluck-cluck! Cuckoo!!! \n...");
@@ -884,6 +888,21 @@ namespace AlchemyQuest
         // Battle Holy Abyssal Serpent
         public static void BattleSerpent()
         {
+            if (!battleGuideShown)
+            {
+                Program.Print("[Mysterious Voice]: Here I am again! Engage in battles by encountering enemies while exploring different locations within the game world.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Cast Fireball: Deal damage to the enemy equivalent to your base damage. This is a reliable option for steadily wearing down your opponent's health.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Mana Shield: Reduce your damage output to 30% of your base damage, but gain a 70% reduction in incoming damage from the enemy. Use this option when facing strong opponents or when your health/enemy's health is low.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Flee Battle: Make a daring escape attempt to exit the battle. There's a 70% chance of success, allowing you to evade the enemy and live to fight another day. However, there's also a 30% chance of failure, resulting in injury and continued combat.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Defeat the enemy by depleting its health to zero to emerge victorious. Each enemy drops different rewards - some are required for potions; some are required for quests, and some enemies have rare drops (grimoires) which further strengthen your character! \n...");
+                Program.ReadKey();
+                Console.Clear();
+                battleGuideShown = true;
+            }
             Program.Print("You encounter a Holy Abyssal Serpent at the Sapphire Serenity Lake. \n...");
             Program.ReadKey();
             Program.Print("[Holy Abyssal Serpent]: Hssss... Foolish mortal, dare you trespass upon sacred waters? Your presence defiles the purity of this realm. Prepare to face the wrath of the abyss.\n...");
@@ -898,6 +917,21 @@ namespace AlchemyQuest
         // Battle Moonlight Earthpulse Golem
         public static void BattleGolem()
         {   
+            if (!battleGuideShown)
+            {
+                Program.Print("[Mysterious Voice]: Here I am again! Engage in battles by encountering enemies while exploring different locations within the game world.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Cast Fireball: Deal damage to the enemy equivalent to your base damage. This is a reliable option for steadily wearing down your opponent's health.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Mana Shield: Reduce your damage output to 30% of your base damage, but gain a 70% reduction in incoming damage from the enemy. Use this option when facing strong opponents or when your health/enemy's health is low.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Flee Battle: Make a daring escape attempt to exit the battle. There's a 70% chance of success, allowing you to evade the enemy and live to fight another day. However, there's also a 30% chance of failure, resulting in injury and continued combat.\n...");
+                Program.ReadKey();
+                Program.Print("[Mysterious Voice]: Defeat the enemy by depleting its health to zero to emerge victorious. Each enemy drops different rewards - some are required for potions; some are required for quests, and some enemies have rare drops (grimoires) which further strengthen your character! \n...");
+                Program.ReadKey();
+                Console.Clear();
+                battleGuideShown = true;
+            }
             Program.Print("You encounter a Moonlight Earthpulse Golem in the Lunar Caverns. \n...");
             Program.ReadKey();
             Program.Print("[Moonlight Earthpulse Golem]: Intruder, you tread upon hallowed ground. Leave this place, or face the consequences. The moon's power flows through me, and I shall not hesitate to crush those who disturb its sanctity. \n...");
@@ -920,7 +954,7 @@ namespace AlchemyQuest
             Program.Print("What will you do?");
             
             Combat("Astral Enigma", 12, 200, 72);
-            
+            Locations.EtherealSummit();
         }
 
         public static void BattleSecretBoss()
@@ -937,6 +971,7 @@ namespace AlchemyQuest
             Program.Print("What will you do?");
 
             Combat("True Astral Enigma", 28, 444, 82);
+            Locations.EtherealSummit();
         }
 
         public static void Combat(string name, decimal damageE, decimal healthE, decimal hitrateE)
@@ -956,21 +991,6 @@ namespace AlchemyQuest
             decimal attack = Program.currentPlayer.damage * Program.currentPlayer.damageMulti;
             decimal currenthealth = Program.currentPlayer.health;
 
-            if (!battleGuideShown)
-            {
-                Program.Print("[Mysterious Voice]: Here I am again! Engage in battles by encountering enemies while exploring different locations within the game world.\n...");
-                Program.ReadKey();
-                Program.Print("[Mysterious Voice]: Cast Fireball: Deal damage to the enemy equivalent to your base damage. This is a reliable option for steadily wearing down your opponent's health.\n...");
-                Program.ReadKey();
-                Program.Print("[Mysterious Voice]: Mana Shield: Reduce your damage output to 30% of your base damage, but gain a 70% reduction in incoming damage from the enemy. Use this option when facing strong opponents or when your health is low.\n...");
-                Program.ReadKey();
-                Program.Print("[Mysterious Voice]: Flee Battle: Make a daring escape attempt to exit the battle. There's a 70% chance of success, allowing you to evade the enemy and live to fight another day. However, there's also a 30% chance of failure, resulting in injury and continued combat.\n...");
-                Program.ReadKey();
-                Program.Print("[Mysterious Voice]: Defeat the enemy by depleting its health to zero to emerge victorious. Each enemy drops different rewards - some are required for potions; some are required for quests, and some enemies have rare drops (grimoires) which further strengthen your character! \n...");
-                Program.ReadKey();
-                Console.Clear();
-                battleGuideShown = true;
-            }
             // Battle enemies
             while(h > 0)
             {   
@@ -1067,7 +1087,7 @@ namespace AlchemyQuest
                 {   
                     // Invalid choice
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 3.");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 3.");
                 }
                 Console.WriteLine("...");
                 Program.ReadKey();
@@ -1076,17 +1096,24 @@ namespace AlchemyQuest
             
             if (currenthealth <= 0)
             {
-                // Player dies
+                // Player dies, player loses 1 life
                 Program.Print($"DEFEAT... You have been slain by the {n}...", 150);
                 Program.ReadKey();
-                Program.Print($"You have lost one life. You have {Program.currentPlayer.lives} more live(s).");
+                Program.Print($"[Mysterious Voice]: You have lost one life. You have {Program.currentPlayer.lives} more live(s).");
                 Program.currentPlayer.lives -= 1;
+
+                if (Program.currentPlayer.lives <= 0) // If player loses all lives, game over
+                {   
+                    Program.Print("GAME OVER...", 1500);
+                    Program.ReadKey();
+                    System.Environment.Exit(0);
+                }
 
             }
 
             if (h <=0)
             {
-                // Player defeats enemy
+                // Player defeats enemy, display vistory message 
                 Program.Print($"Victory! You have defeated the {n}!", 50);
                 if (n == "Crazy Cursed Chicken")
                 {
@@ -1157,9 +1184,9 @@ namespace AlchemyQuest
                 }
                 else if (n == "Astral Enigma")
                 {   
-                    if (BrewPotions.cauldron[7] == "X Brewed X")
+                    if (BrewPotions.brewedpotions.Contains("Holy Elixir of Restoration"))
                     {
-                        // If the Holy Elixir of Restoration is brewed
+                        // If the Holy Elixir of Restoration is brewed and not given away
                         // GOOD ENDING
                         Program.Print("As the Astral Enigma falls before your might, the realm of Eldralore is bathed in a warm glow. Master Alaric, freed from his curse, embraces you with gratitude. \n...");
                         Program.ReadKey();
@@ -1169,7 +1196,7 @@ namespace AlchemyQuest
                         Program.ReadKey();
                         Program.Print("With the Astral Enigma defeated and balance restored, you continue your journey as a revered alchemist, using your skills to protect the realm and unlock its endless mysteries.\n...");
                         Program.ReadKey();
-                        Program.Print($"Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the Good Ending. Thank you for playing!\n...");
+                        Program.Print($"[Mysterious Voice]: Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the Good Ending. Thank you for playing!\n...");
                         Program.ReadKey();
                         System.Environment.Exit(0);
                     }
@@ -1186,7 +1213,7 @@ namespace AlchemyQuest
                         Program.ReadKey();
                         Program.Print("Master Alaric's absence serves as a constant reminder of the price of negligence, leaving you to ponder what could have been if only you had brewed the elixir and saved your mentor.\n...");
                         Program.ReadKey();
-                        Program.Print($"Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the Bad Ending. Thank you for playing!\n...");
+                        Program.Print($"[Mysterious Voice]: Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the Bad Ending. Thank you for playing!\n...");
                         Program.ReadKey();
                         System.Environment.Exit(0);
                     }
@@ -1210,7 +1237,7 @@ namespace AlchemyQuest
                     Program.ReadKey();
                     Program.Print("You have saved Eldralore from one evil, only to become another, forever bound by the Malevolent forces you dared to wield.\n...");
                     Program.ReadKey();
-                    Program.Print($"Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the SECRET Ending. Thank you for playing!\n...");
+                    Program.Print($"[Mysterious Voice]: Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the SECRET Ending. Thank you for playing!\n...");
                     Program.ReadKey();
                     System.Environment.Exit(0);
                 }
@@ -1218,9 +1245,7 @@ namespace AlchemyQuest
         }
             
  
-    }
-
-     // end class Battles
+    }  // end class Battles
 
     public class PlayerInventory 
     {
@@ -1325,8 +1350,11 @@ namespace AlchemyQuest
                     else 
                     {
                         // Player has restricted entry as potion not brewed
-                        Program.Print("[!] You are unable to access this location.");
-                        Console.WriteLine("You must brew the Arcane Spirit Elixir before adventuring into the Arcane Ruins. \n...");
+                        Program.Print("[You]: These ruins ahead look ancient and mysterious. But there's something unsettling about them...\n...");
+                        Program.ReadKey();
+                        Program.Print("You glance at inscriptions carved on the stones. Deciphering those inscriptions could reveal hidden knowledge.\n...");
+                        Program.ReadKey();
+                        Program.Print("[You]: To enter the ruins and unveil the mysteries, I must summon forth an arcane spirit, a guardian of hidden knowledge, to decipher the hidden messages. [!] You do not have access to this location yet.\n...");
                         Program.ReadKey();
                         Console.Clear();
                         Crossroads();
@@ -1344,7 +1372,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 5. \n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 5. \n...");
                     Program.ReadKey();
                     Console.Clear();
                     Crossroads();
@@ -1411,8 +1439,11 @@ namespace AlchemyQuest
                     else  
                     {
                         // Player has restricted entry as potion not brewed
-                        Program.Print("[!] You are unable to access this location.");
-                        Console.WriteLine("You must brew the Aqua Breather Potion before adventuring into the Sapphire Serenity Lake. \n...");
+                        Program.Print("[You]: That lake looks really deep... The air's getting thinner, and it's freezing cold.\n...");
+                        Program.ReadKey();
+                        Program.Print("You glance at the lake but notice it's really deep. Swimming down there without preparation sounds risky.\n...");
+                        Program.ReadKey();
+                        Program.Print("[You]: Gotta gear up before diving in. I'd have to brew something that lets me breathe underwater. Can't wait to uncover the secrets down there! [!] You do not have access to this location yet.\n...");
                         Program.ReadKey();
                         Console.Clear();
                         MysticForest();
@@ -1450,7 +1481,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 6. \n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 6. \n...");
                     Program.ReadKey();
                     Console.Clear();
                     MysticForest();
@@ -1516,8 +1547,11 @@ namespace AlchemyQuest
                     else 
                     {
                         // Player has restricted entry as potion not brewed
-                        Program.Print("[!] You are unable to access this location.");
-                        Console.WriteLine("You must brew the Noctis Vision Brew before adventuring into the Lunar Caverns. \n...");
+                        Program.Print("[You]: Those caverns look like they go deep into the earth! But it's so dark in there.\n...");
+                        Program.ReadKey();
+                        Program.Print("Peering into the cavern's depths, you can't see anything but darkness. Exploring without preparation might be a bad idea.\n...");
+                        Program.ReadKey();
+                        Program.Print("[You]: Gotta gear up before delving into these caverns. I'd have to brew something that lets me see in the dark. Can't wait to uncover the secrets inside! [!] You do not have access to this location yet.\n...");
                         Program.ReadKey();
                         Console.Clear();
                         StarlightMeadow();
@@ -1555,7 +1589,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 6. \n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 6. \n...");
                     Program.ReadKey();
                     Console.Clear();
                     StarlightMeadow();
@@ -1616,7 +1650,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 5. \n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 5. \n...");
                     Program.ReadKey();
                     Console.Clear();
                     SerenityLake(); // Repeat the Sapphire Serenity Lake choice
@@ -1675,7 +1709,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 5. \n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 5. \n...");
                     Program.ReadKey();
                     Console.Clear();
                     LunarCaverns();
@@ -1707,10 +1741,24 @@ namespace AlchemyQuest
 
                 case "2":
                 // Player chooses to continue to Ethereal Summit
-                    Program.Print("You decide to continue to the Ethereal Summit. \n...");
-                    Program.ReadKey();
-                    Console.Clear();
-                    Locations.EtherealSummit();
+                    if (BrewPotions.brewedpotions.Contains("Frost Resistance Potion") && BrewPotions.brewedpotions.Contains("Levitas Elixir"))
+                    {
+                        Program.Print("You decide to continue to the Ethereal Summit. \n...");
+                        Program.ReadKey();
+                        Console.Clear();
+                        Locations.EtherealSummit();
+                    }
+                    else
+                    {
+                        Program.Print("[You]: Woah, that summit's way up there! The air's getting thinner, and it's freezing cold.\n...");
+                        Program.ReadKey();
+                        Program.Print("You shiver in the biting cold wind. Climbing up there without proper preparation seems impossible.\n...");
+                        Program.ReadKey();
+                        Program.Print("[You]: I'll need to brew a potion to resist the cold and maybe even something to help me float up higher. [!] You do not have access to this location yet.\n...");
+                        Program.ReadKey();
+                        Console.Clear();
+                        Locations.ArcaneRuins();
+                    }
                     break;
 
                 case "3":
@@ -1744,7 +1792,7 @@ namespace AlchemyQuest
                     else
                     {
                         Program.Print("Error!", 25);
-                        Console.WriteLine("Please enter an integer from 1 to 5. \n...");
+                        Console.WriteLine("[!] Please enter an integer between 1 and 5. \n...");
                         Program.ReadKey();
                         Console.Clear();
                         ArcaneRuins();
@@ -1754,7 +1802,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 5. \n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 5. \n...");
                     Program.ReadKey();
                     Console.Clear();
                     ArcaneRuins();
@@ -1807,7 +1855,7 @@ namespace AlchemyQuest
                 else
                 {
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 3. \n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 3. \n...");
                     Program.ReadKey();
                     Console.Clear();
                     EtherealSummit();
@@ -1817,7 +1865,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 3. \n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 3. \n...");
                     Program.ReadKey();
                     Console.Clear();
                     EtherealSummit(); 
@@ -1858,7 +1906,7 @@ namespace AlchemyQuest
                     if (!Quests.DiaryQuestCompleted())
                     {
                         // Player hasn't completed diary quest and is unable to access diary
-                        Program.Print("You have not unlocked this option yet. Complete Silky Spider Queen's quest to unlock.\n...");
+                        Program.Print("[Mysterious Voice]: You have not unlocked this option yet. Complete Silky Spider Queen's quest to unlock.\n...");
                         Console.ReadKey();
                         Console.Clear();
                         Basement();
@@ -1891,7 +1939,7 @@ namespace AlchemyQuest
                 default:
                 // Invalid choice and repeats
                     Program.Print("Error!", 25);
-                    Console.WriteLine("Please enter an integer from 1 to 3. \n...");
+                    Console.WriteLine("[!] Please enter an integer between 1 and 4. \n...");
                     Program.ReadKey();
                     Console.Clear();
                     Basement();
@@ -2345,7 +2393,7 @@ namespace AlchemyQuest
                 Program.ReadKey();
                 Program.Print("[You]: Alright, I will return to you when I am ready.\n...");
                 Program.ReadKey();
-                Program.Print("[!] This is an optional side quest which will contribute to the Secret Ending. Only complete this if you wish to obtain the Secret Ending. You can still obtain the Good and Bad Endings if you complete this while not fulfilling the conditions for the Secret Ending.\n...");
+                Program.Print("[!] This is an optional side quest which will contribute to the Secret Ending. Only complete this if you wish to obtain the Secret Ending. You can still obtain the Bad Ending (but not Good Ending) if you complete this while not fulfilling the conditions for the Secret Ending (defeat True Astral Enigma).\n...");
                 Program.ReadKey();
                 Console.Clear();
                 hasTalkedToSage = true;
@@ -2494,8 +2542,12 @@ namespace AlchemyQuest
         // Accursed Arcane Alchemist quest
         public static void ArcaneAlchemist()
         {
-            if (!hasTalkedToAlchemist)
+            if (!hasTalkedToAlchemist) // Initial dialogue with NPC
             {
+                Program.Print("As you chant the word \"awaken,\" a profound silence fills the air, followed by a faint whisper echoing through the arcane ruins. \n...");
+                Program.ReadKey();
+                Program.Print("Suddenly, a ripple of dark energy spreads across the chamber, fusing into the form of a mysterious figure draped in tattered robes.\n...");
+                Program.ReadKey();
                 Program.Print("[Accursed Arcane Alchemist]: Ah, you must have been acknowledged by the Wise Celestial Sage. Why have you summoned me?\n...");
                 Program.ReadKey();
                 Program.Print($"[You]: I, {Program.currentPlayer.name}, seek further knowledge and power to aid me on my journey.\n...");
@@ -2524,18 +2576,18 @@ namespace AlchemyQuest
 
             else
             {
-                if (!MalevolentCrystalQuestCompleted())
+                if (!MalevolentCrystalQuestCompleted()) // If quest hasn't been completed yet
                 {
                     CompleteArcaneAlchemistQuest();
                 }
 
                  else
-                {
+                {    // If quest is already completed
                     Program.Print($"[Blessed Arcane Alchemist]: I appreciate your help, {Program.currentPlayer.name}. My curse has been dispelled thanks to you. Remember, you must obtain 1 Ancient Grimoire of Fury, 1 Poseidon's Grimoire of Fury and 1 Gaia's Grimoire of Fury, along with the crystal I gave you, to brew the Malevolent Elixir of Calamity.\n...");
                     Program.ReadKey();
                     Program.Print("[Blessed Arcane Alchemist]: Also, to battle the True Astral Enigma, type the secret numbers you obtained in order (from the quests), at the Ethereal Summit.");
                     Console.Clear();
-                    Program.Print("[Example: 1st number: 1, 2nd: 2, 3rd: 3, 4th: 4. Secret code = 1234 --> type 1234 at the Ethereal Summit. (This is just an example. Don't actually type 1234.)]");
+                    Program.Print("[Example: 1st number: 1, 2nd: 2, 3rd: 3, 4th: 4 --> Secret code = 1234 --> type 1234 at the Ethereal Summit. (This is just an example. The actual secret code isn't 1234.)]");
                     Console.Clear();
                     Locations.ArcaneRuins();
                 }
@@ -2550,6 +2602,8 @@ namespace AlchemyQuest
                 BrewPotions.brewedpotions.Remove("Holy Elixir of Restoration");
                 // Reward player with the Malevolent Doombringer Crystal
                 PlayerInventory.AddIngredient("Malevolent Doombringer Crystal", 1);
+                Program.Print("The Accursed Arcane Alchemist greets you once again.\n...");
+                Program.ReadKey();
                 Program.Print($"[Accursed Arcane Alchemist]: {Program.currentPlayer.name}, you have returned with the Holy Elixir of Restoration. Excellent!\n...");
                 Program.ReadKey();
                 Program.Print("[Accursed Arcane Alchemist]: As promised, here is the Malevolent Doombringer Crystal, a relic of great power.\n...");
@@ -2583,7 +2637,9 @@ namespace AlchemyQuest
                 Locations.ArcaneRuins();
             }
             else
-            {
+            {   
+                Program.Print("The Accursed Arcane Alchemist greets you once again.\n...");
+                Program.ReadKey();
                 Program.Print("[Accursed Arcane Alchemist]: Return to me when you possess the Holy Elixir of Restoration.\n...");
                 Program.ReadKey();
                 Console.Clear();
