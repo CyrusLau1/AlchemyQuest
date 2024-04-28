@@ -126,7 +126,7 @@ namespace AlchemyQuest
             Program.ReadKey();
             Print("Hurrying back to the Alchemy Lab, your heart sinks at the sight of devastation. The lab, once a haven of knowledge, now lies in ruins, a victim of dark forces. With trembling hands, you conjure a spell to glimpse into the past. \n...");
             Program.ReadKey();
-            Print("The mist of magic reveals a cloaked figure, their presence ominous as they capture Master Alaric and vanish into the night. Determination courses through your mind as you vow to repair the lab and rescue master from the clutches of darkness. \n...");
+            Print("The mist of magic reveals a mysterious cloaked figure, their presence ominous as they capture Master Alaric and vanish into the night. Determination courses through your mind as you vow to repair the lab and rescue master from the clutches of darkness. \n...");
             Program.ReadKey();
             Print("This is just the beginning of your journey. With resolve in your heart, you set forth to uncover the truth and restore peace to Eldralore. \n...");
             Program.ReadKey();
@@ -178,7 +178,7 @@ namespace AlchemyQuest
         // Location = Alchemy Lab
         public static void Lab()
         {
-            if (!labGuideShown)
+            if (!labGuideShown) // Show lab guide if first time visiting lab
             {
                 Program.Print("[Mysterious Voice]: You have now entered the Alchemy Lab, the starting point of your journey.\n...");
                 Program.ReadKey();
@@ -194,9 +194,9 @@ namespace AlchemyQuest
                 Program.ReadKey();
                 Program.Print("[Mysterious Voice]: After receiving her reward, you will be able to gain a deeper understanding of the world of Eldralore.\n...");
                 Program.ReadKey();
-                Program.Print("[Mysterious Voice]: Your ultimate goal is to strenghtne yourself enough to defeat the final boss and rescue Master Alaric.\n...");
+                Program.Print("[Mysterious Voice]: Your ultimate goal is to strengthen yourself enough to defeat the final boss and rescue Master Alaric.\n...");
                 Program.ReadKey();
-                Program.Print("[Mysterious Voice]: [SPOILER!]: To get the Good Ending, simply brew the Holy Elixir of Restoration and defeat the Astral Enigma. To get the Bad Ending, defeat the Astral Enigma without brewing the elixir. To get the Secret Ending, complete all the quests and defeat the secret boss, True Astral Enigma.\n...");
+                Program.Print("[Mysterious Voice]: [SPOILER!]: To get the Good Ending, simply brew the Holy Elixir of Restoration and defeat the Astral Enigma. To get the Bad Ending, defeat the Astral Enigma without brewing/owning the elixir. To get the Secret Ending, complete all the quests and defeat the secret boss, True Astral Enigma.\n...");
                 Program.ReadKey();
                 Program.Print("[Mysterious Voice]: And that's it! Rest assured, my voice will occassionally appear in your mind to provide you with guidance!\n...");
                 Program.ReadKey();
@@ -400,7 +400,7 @@ namespace AlchemyQuest
 
         public static void DisplayDiary() // Displays Master's diary
         {
-            if (!diaryGuideShown)
+            if (!diaryGuideShown) // If first time reading diary, show diary guide
             {
                 Program.Print("[Mysterious Voice]: You have now unlocked Master Alaric's Diary, a valuable tome containing Master Alaric's knowledge, recipes, and insights gathered over a lifetime of alchemical research..\n...");
                 Program.ReadKey();
@@ -416,6 +416,7 @@ namespace AlchemyQuest
             Console.WriteLine("[2] Locations");
             Console.WriteLine("[3] Enemies");
             Console.WriteLine("[4] Stop Reading");
+            Console.WriteLine("=======================");
             Console.Write("Your choice: ");
             string? sectionChoice = Console.ReadLine();
             while (true)
@@ -601,11 +602,11 @@ namespace AlchemyQuest
 
         public static void Cauldron()
         {
-            if (!brewingGuideShown)
+            if (!brewingGuideShown) // If first time visiting cauldron, show brewing guide
             {
                 Program.Print("[Mysterious Voice]: This is the Cauldron, where you will brew powerful potions with various effects to aid you on their journey..\n...");
                 Program.ReadKey();
-                Program.Print("[Mysterious Voice]: Gather the required ingredients for the potion you wish to brew. Most ingredients can be found by exploring different locations and few will be dropped from defeated enemies.\n...");
+                Program.Print("[Mysterious Voice]: Gather the required ingredients for the potion you wish to brew. Most ingredients can be found by harvesting in different locations and few will be dropped from enemies.\n...");
                 Program.ReadKey();
                 Program.Print("[Mysterious Voice]: Recipes for potions are shown in Master Alaric's Diary at the basement, so complete Silky Spider Queen's quest if you still haven't done so!\n...");
                 Program.ReadKey();
@@ -637,7 +638,7 @@ namespace AlchemyQuest
                 Console.Write("Your choice: ");
                 string? brewChoice = Console.ReadLine();
 
-                if (brewChoice == "1" & !CanBrewPotion(noctisVisionIngredients) || brewChoice == "2" & !CanBrewPotion(aquaBreatherIngredients) || brewChoice == "3" & !CanBrewPotion(naturaeBlessingIngredients) || brewChoice == "4" & !CanBrewPotion(darkPyroblastIngredients) || brewChoice == "5" & !CanBrewPotion(arcaneSpiritIngredients) || brewChoice == "6" & !CanBrewPotion(levitasIngredients) || brewChoice == "7" & !CanBrewPotion(frostResistanceIngredients) || brewChoice == "8" & !CanBrewPotion(holyElixirIngredients) || Quests.HolyChickenQuestCompleted() && brewChoice == "holychicken" && !CanBrewPotion(holyRoastedChicken) || brewChoice == "secret" && !CanBrewPotion(malevolentElixirIngredients)) // ADD || OTHER POTIONS
+                if (brewChoice == "1" && !CanBrewPotion(noctisVisionIngredients) || brewChoice == "2" && !CanBrewPotion(aquaBreatherIngredients) || brewChoice == "3" && !CanBrewPotion(naturaeBlessingIngredients) || brewChoice == "4" && !CanBrewPotion(darkPyroblastIngredients) || brewChoice == "5" && !CanBrewPotion(arcaneSpiritIngredients) || brewChoice == "6" && !CanBrewPotion(levitasIngredients) || brewChoice == "7" && !CanBrewPotion(frostResistanceIngredients) || brewChoice == "8" && !CanBrewPotion(holyElixirIngredients) || Quests.HolyChickenQuestCompleted() && brewChoice == "holychicken" && !CanBrewPotion(holyRoastedChicken) || brewChoice == "secret" && !CanBrewPotion(malevolentElixirIngredients)) // ADD || OTHER POTIONS
                 {
                     // Not enough ingredients
                     Console.Clear();
@@ -647,7 +648,7 @@ namespace AlchemyQuest
                     Console.Clear();
                 }
 
-                else if (brewChoice == "1" & cauldron[0] == "Noctis Vision Brew")
+                else if (brewChoice == "1" && cauldron[0] == "Noctis Vision Brew")
                 {
                     // Player has enough ingredients to brew the Noctis Vision Brew
                     Program.Print("Success!", 50);
@@ -663,7 +664,7 @@ namespace AlchemyQuest
                     brewedpotions.Add("Noctis Vision Brew");
                 }
 
-                else if (brewChoice == "2" & cauldron[1] == "Aqua Breather Potion")
+                else if (brewChoice == "2" && cauldron[1] == "Aqua Breather Potion")
                 {
                     // Player has enough ingredients to brew the Aqua Breather Potion
                     Program.Print("Success!", 50);
@@ -676,7 +677,7 @@ namespace AlchemyQuest
                     brewedpotions.Add("Aqua Breather Potion");
                 }
 
-                else if (brewChoice == "3" & cauldron[2] == "Naturae Blessing Brew")
+                else if (brewChoice == "3" && cauldron[2] == "Naturae Blessing Brew")
                 {
                     // Player has enough ingredients to brew the Naturae Blessing Brew
                     Program.Print("Success!", 50);
@@ -691,7 +692,7 @@ namespace AlchemyQuest
                     brewedpotions.Add("Naturae Blessing Brew");
                 }
 
-                else if (brewChoice == "4" & cauldron[3] == "Dark Pyroblast Infusion")
+                else if (brewChoice == "4" && cauldron[3] == "Dark Pyroblast Infusion")
                 {
                     // Player has enough ingredients to brew the Dark Pyroblast Infusion
                     Program.Print("Success!", 50);
@@ -706,7 +707,7 @@ namespace AlchemyQuest
                     brewedpotions.Add("Dark Pyroblast Infusion");
                 }
 
-                else if (brewChoice == "5" & cauldron[4] == "Arcane Spirit Elixir")
+                else if (brewChoice == "5" && cauldron[4] == "Arcane Spirit Elixir")
                 {
                     // Player has enough ingredients to brew the Arcane Spirit Elixir
                     Program.Print("Success!", 50);
@@ -725,7 +726,7 @@ namespace AlchemyQuest
                     brewedpotions.Add("Arcane Spirit Elixir");
                 }
 
-                else if (brewChoice == "6" & cauldron[5] == "Levitas Elixir")
+                else if (brewChoice == "6" && cauldron[5] == "Levitas Elixir")
                 {
                     // Player has enough ingredients to brew the Levitas Elixir
                     Program.Print("Success!", 50);
@@ -738,7 +739,7 @@ namespace AlchemyQuest
                     brewedpotions.Add("Levitas Elixir");
                 }
 
-                else if (brewChoice == "7" & cauldron[6] == "Frost Resistance Potion")
+                else if (brewChoice == "7" && cauldron[6] == "Frost Resistance Potion")
                 {
                     // Player has enough ingredients to brew the Frost Resistance Potion
                     Program.Print("Success!", 50);
@@ -751,7 +752,7 @@ namespace AlchemyQuest
                     brewedpotions.Add("Frost Resistance Potion");
                 }
 
-                else if (brewChoice == "8" & cauldron[7] == "Holy Elixir of Restoration")
+                else if (brewChoice == "8" && cauldron[7] == "Holy Elixir of Restoration")
                 {
                     // Player has enough ingredients to brew the Holy Elixir of Restoration
                     Program.Print("Success!", 50);
@@ -766,17 +767,18 @@ namespace AlchemyQuest
                     brewedpotions.Add("Holy Elixir of Restoration");
                 }
 
-                else if (Quests.HolyChickenQuestCompleted() && brewChoice == "holychicken" & cauldron[8] == "Holy Roasted Chicken")
+                else if (Quests.HolyChickenQuestCompleted() && brewChoice == "holychicken" && cauldron[8] == "Holy Roasted Chicken")
                 {
                     // Player has enough ingredients to brew the Holy Elixir of Restoration
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have produced a Holy Roasted Chicken!");
+                    Console.WriteLine("You have produced a Holy Roasted Chicken, an essential ingredient in brewing the Holy Elixir of Restoration!");
+                    PlayerInventory.AddIngredient("Holy Roasted Chicken", 1);
                     Program.ReadKey();
                     Console.Clear();
                     cauldron[8] = "Empty";
                 }
 
-                else if (brewChoice == "secret" & cauldron[9] == "Malevolent Elixir of Calamity")
+                else if (brewChoice == "secret" && cauldron[9] == "Malevolent Elixir of Calamity")
                 {
                     // Player has enough ingredients to brew the Holy Elixir of Restoration
                     Program.Print("Success!", 50);
@@ -793,7 +795,7 @@ namespace AlchemyQuest
                     brewedpotions.Add("Malevolent Elixir of Calamity");
                 }
 
-                else if (brewChoice == "1" & cauldron[0] == "X Brewed X" || brewChoice == "2" & cauldron[1] == "X Brewed X" || brewChoice == "3" & cauldron[2] == "X Brewed X" || brewChoice == "4" & cauldron[3] == "X Brewed X" || brewChoice == "5" & cauldron[4] == "X Brewed X" || brewChoice == "6" & cauldron[5] == "X Brewed X" || brewChoice == "7" & cauldron[6] == "X Brewed X" || brewChoice == "8" & cauldron[7] == "X Brewed X" || brewChoice == "holychicken" & cauldron[8] == "Empty")
+                else if (brewChoice == "1" && cauldron[0] == "X Brewed X" || brewChoice == "2" && cauldron[1] == "X Brewed X" || brewChoice == "3" && cauldron[2] == "X Brewed X" || brewChoice == "4" && cauldron[3] == "X Brewed X" || brewChoice == "5" && cauldron[4] == "X Brewed X" || brewChoice == "6" && cauldron[5] == "X Brewed X" || brewChoice == "7" && cauldron[6] == "X Brewed X" || brewChoice == "8" && cauldron[7] == "X Brewed X" || brewChoice == "holychicken" && cauldron[8] == "Empty")
                 {
                     // Player has already brewed the potion
                     Program.Print("Failure!", 50);
@@ -857,11 +859,11 @@ namespace AlchemyQuest
 
     public class Battles
     {
-        private static bool battleGuideShown = false;
+        private static bool battleGuideShown = false; 
         // Battle Crazy Cursed Chicken
         public static void BattleChicken()
         {
-            if (!battleGuideShown)
+            if (!battleGuideShown) // If first encounter with an enemy, show battle guide
             {
                 Program.Print("[Mysterious Voice]: Here I am again! Engage in battles by encountering enemies while exploring different locations within the game world.\n...");
                 Program.ReadKey();
@@ -871,11 +873,12 @@ namespace AlchemyQuest
                 Program.ReadKey();
                 Program.Print("[Mysterious Voice]: Flee Battle: Make a daring escape attempt to exit the battle. There's a 70% chance of success, allowing you to evade the enemy and live to fight another day. However, there's also a 30% chance of failure, resulting in injury and continued combat.\n...");
                 Program.ReadKey();
-                Program.Print("[Mysterious Voice]: Defeat the enemy by depleting its health to zero to emerge victorious. Each enemy drops different rewards - some are required for potions; some are required for quests, and some enemies have rare drops (grimoires) which further strengthen your character! \n...");
+                Program.Print("[Mysterious Voice]: Defeat the enemy by depleting its health to zero to emerge victorious. Each enemy drops different rewards - some are required for potions; some are required for quests, and some enemies have rare drops (grimoires) which further strengthen your character (increases stats)! \n...");
                 Program.ReadKey();
                 Console.Clear();
                 battleGuideShown = true;
             }
+
             Program.Print("You encounter a weird-looking chicken on the Crossroads.\n...");
             Program.ReadKey();
             Program.Print("[Crazy Cursed Chicken]: Cluck-cluck-cluck! Cuckoo!!! Cluck-cluck-cluck! Cuckoo!!! \n...");
@@ -1008,7 +1011,7 @@ namespace AlchemyQuest
                 int enemyHitChance = rnd.Next(1, 101);
                 int fleeChance = rnd.Next(1, 101);
                 string? input = Console.ReadLine();
-                if(input == "1" & hitChance <= Program.currentPlayer.hitrate & enemyHitChance <= r)
+                if(input == "1" && hitChance <= Program.currentPlayer.hitrate && enemyHitChance <= r)
                 {   
                     // Both player and enemy attack successful
                     Console.WriteLine($"With haste, you summon a blazing fireball in your hands and hurl it towards the {n}! Furiously, the {n} strikes you back with a heavy blow.");
@@ -1016,26 +1019,26 @@ namespace AlchemyQuest
                     currenthealth -= d;
                     h -= attack;
                 }
-                else if (input == "1" & hitChance > Program.currentPlayer.hitrate & enemyHitChance <= r)
+                else if (input == "1" && hitChance > Program.currentPlayer.hitrate && enemyHitChance <= r)
                 {
                     // Player attack missed and enemy attack successful
                     Console.WriteLine($"With haste, you summon a blazing fireball in your hands and hurl it towards the {n}. Unfortunately, your fireball missed it, and it strikes you back with a heavy blow.");
                     Console.WriteLine($"You lose {d} health from its attack.");
                     currenthealth -= d;
                 }
-                else if (input == "1" & hitChance <= Program.currentPlayer.hitrate & enemyHitChance > r)
+                else if (input == "1" && hitChance <= Program.currentPlayer.hitrate && enemyHitChance > r)
                 {
                     // Player attack successful and enemy attack missed
                     Console.WriteLine($"With haste, you summon a blazing fireball in your hands and hurl it towards the {n}. Furiously, the {n} tried to strike you back and missed its attack.");
                     Console.WriteLine($"You deal {attack} damage to the {n}.");
                     h -= attack;
                 }
-                else if (input == "1" & hitChance > Program.currentPlayer.hitrate & enemyHitChance > r)
+                else if (input == "1" && hitChance > Program.currentPlayer.hitrate && enemyHitChance > r)
                 {
                     // Both player and enemy attack missed
                     Console.WriteLine("You both missed your attacks! How unfortunate!");
                 }
-                else if(input == "2" & hitChance <= Program.currentPlayer.hitrate & enemyHitChance <= r)
+                else if(input == "2" && hitChance <= Program.currentPlayer.hitrate && enemyHitChance <= r)
                 {   
                     // Both player and enemy attack successful; player casts shield
                     Console.WriteLine($"With haste, you cast a mana shield around you and punch the {n}! Furiously, the {n} strikes you back, and your mana shield protects you.");
@@ -1043,21 +1046,21 @@ namespace AlchemyQuest
                     currenthealth -= d * 0.3m;
                     h -= attack * 0.3m;
                 }
-                else if (input == "2" & hitChance > Program.currentPlayer.hitrate & enemyHitChance <= r)
+                else if (input == "2" && hitChance > Program.currentPlayer.hitrate && enemyHitChance <= r)
                 {
                     // Player casts shield and misses attack; enemy attack successful
                     Console.WriteLine($"With haste, you cast a mana shield around you and try to punch the {n}! Unfortunately, you missed your punch. Furiously, the {n} strikes you back, but your mana shield protects you.");
                     Console.WriteLine($"You lose {d * 0.3m} health from its attack.");
                     currenthealth -= d * 0.3m;
                 }
-                else if (input == "2" & hitChance <= Program.currentPlayer.hitrate & enemyHitChance > r)
+                else if (input == "2" && hitChance <= Program.currentPlayer.hitrate && enemyHitChance > r)
                 {
                     // Player casts shield and attacks successfully; enemy attack missed
                     Console.WriteLine($"With haste, you cast a mana shield around you and punch the {n}! Furiously, the {n} tries to strike you but misses its attack, leaving your mana shield useless.");
                     Console.WriteLine($"You deal {attack * 0.3m} damage to the {n}.");
                     h -= attack * 0.3m;
                 }
-                else if (input == "2" & hitChance > Program.currentPlayer.hitrate & enemyHitChance > r)
+                else if (input == "2" && hitChance > Program.currentPlayer.hitrate && enemyHitChance > r)
                 {
                     // Both player and enemy attack missed;
                     Console.WriteLine("You casted a mana shield, but you both missed your attacks! How unfortunate!");
@@ -1383,7 +1386,7 @@ namespace AlchemyQuest
         public static void MysticForest()
         // Location = Mystic Forest
         {
-            if (!harvestGuideShown)
+            if (!harvestGuideShown) // If first time visiting either Mystic Forest or Starlight Meadow, show harvesting and quests guide
             {
                 Program.Print("[Mysterious Voice]: Hey there! Harvesting is a crucial aspect of gameplay, allowing you to gather resources such as ingredients, minerals, and rare items from various locations in the world of Eldralore.\n...");
                 Program.ReadKey();
@@ -1492,7 +1495,7 @@ namespace AlchemyQuest
         public static void StarlightMeadow()
         // Location = Starlight Meadow
         {
-            if (!harvestGuideShown)
+            if (!harvestGuideShown) // If first time visiting either Mystic Forest or Starlight Meadow, show harvesting and quests guide
             {
                 Program.Print("[Mysterious Voice]: Hey there! Harvesting is a crucial aspect of gameplay, allowing you to gather resources such as ingredients, minerals, and rare items from various locations in the world of Eldralore.\n...");
                 Program.ReadKey();
@@ -2617,7 +2620,7 @@ namespace AlchemyQuest
                 Program.ReadKey();
                 Program.Print("[Accursed Arcane Alchemist]: But remember, its true potential can only be unlocked with the Malevolent Elixir of Calamity.\n...");
                 Program.ReadKey();
-                Program.Print("[Accursed Arcane Alchemist]: To brew it, you will need to throw one of each grimoire (1 Ancient Grimoire of Fury, 1 Poseidon's Grimoire of Fury, 1 Gaia's Grimoire of Fury), along with the Malevolent Doombringer Crystal into your Cauldron.\n...");
+                Program.Print("[Accursed Arcane Alchemist]: To brew it, you will need to throw one of each grimoire (1 Ancient Grimoire of Fury, 1 Poseidon's Grimoire of Fury, 1 Gaia's Grimoire of Fury), along with the Malevolent Doombringer Crystal, into your Cauldron.\n...");
                 Program.ReadKey();
                 Program.Print("[Accursed Arcane Alchemist]: Simply type \"secret\" at the Cauldron to begin the brewing process. [You will keep the stats increases from the Malevolent Doombringer Crystal.]\n...");
                 Program.ReadKey();
@@ -2627,7 +2630,7 @@ namespace AlchemyQuest
                 Program.ReadKey();
                 Program.Print("[Accursed Arcane Alchemist]: For example, if the first secret number is 1; second is 2; third is 3; forth is 4, type \"1234\" at the Ethereal Summit to summon the True Astral Enigma.\n...");
                 Program.ReadKey();
-                Program.Print("[Accursed Arcane Alchemist]: Use caution, adventurer. The True Astral Enigma is not to be underestimated.\n...");
+                Program.Print("[Accursed Arcane Alchemist]: However, use caution. The True Astral Enigma is not to be underestimated.\n...");
                 Program.ReadKey();
                 Program.Print("[Accursed Arcane Alchemist]: I highly recommend you to brew the Malevolent Elixir of Calamity before battling him, or else you will most likely fail.\n...");
                 Program.ReadKey();
@@ -2658,6 +2661,6 @@ namespace AlchemyQuest
                 return false;
             }
         }
-    }
+    } // end class Quests
 }
 
