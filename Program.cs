@@ -1954,10 +1954,10 @@ namespace AlchemyQuest
 
     public class Harvesting
     {
-        static int harvesting_speed = 40; // Time to harvest ingredients (40ms for each character of "Harvesting..." --> 40ms*13 = 520ms (~0.5s))
+        static int harvestingSpeed = 40; // Time to harvest ingredients (40ms for each character of "Harvesting..." --> 40ms*13 = 520ms (~0.5s))
         public static void HarvestForest()
         {
-            Program.Print("Harvesting...", harvesting_speed);
+            Program.Print("Harvesting...", harvestingSpeed);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
@@ -1992,7 +1992,7 @@ namespace AlchemyQuest
 
         public static void HarvestMeadow()
         {
-            Program.Print("Harvesting...", harvesting_speed);
+            Program.Print("Harvesting...", harvestingSpeed);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
@@ -2027,7 +2027,7 @@ namespace AlchemyQuest
 
         public static void HarvestLake()
         {
-            Program.Print("Harvesting...", harvesting_speed);
+            Program.Print("Harvesting...", harvestingSpeed);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
@@ -2062,7 +2062,7 @@ namespace AlchemyQuest
 
         public static void HarvestCaverns()
         {
-            Program.Print("Harvesting...", harvesting_speed);
+            Program.Print("Harvesting...", harvestingSpeed);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
@@ -2097,7 +2097,7 @@ namespace AlchemyQuest
         
         public static void HarvestRuins()
         {
-            Program.Print("Harvesting...", harvesting_speed);
+            Program.Print("Harvesting...", harvestingSpeed);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
@@ -2132,7 +2132,7 @@ namespace AlchemyQuest
 
         public static void SearchBasement()
         {
-            Program.Print("Searching...", harvesting_speed);
+            Program.Print("Searching...", harvestingSpeed);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
