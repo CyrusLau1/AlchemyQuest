@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Alchemy Quest by Cyrus Lau
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,7 +11,6 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-
 
 namespace AlchemyQuest
 {
@@ -51,7 +51,6 @@ namespace AlchemyQuest
         {
             // Start the game
             Start();
-
         }
 
         public static void Print(string text, int speed = 2, bool allowSkip = true)
@@ -67,7 +66,6 @@ namespace AlchemyQuest
                 {
                     // Immediately displays text
                     speed = 0;
-
                 }
             }
             Console.WriteLine();
@@ -110,7 +108,7 @@ namespace AlchemyQuest
             else if (!Regex.IsMatch(currentPlayer.name, namePattern))
             {
                 Console.WriteLine("[!] Your name can only contain alphanumeric characters (letters of the English alphabet & numbers), spaces, and underscores. Please enter a valid name.\n...");
-                Console.WriteLine("\n[Press Enter whenever \"...\" is displayed to continue.]");
+                Console.WriteLine("\n[Press Enter (or any key) whenever \"...\" is displayed to continue.]");
                 Program.ReadKey(); 
                 Console.Clear(); 
                 Start();
@@ -120,16 +118,16 @@ namespace AlchemyQuest
                 Print($"[Mysterious Voice]: In the magical land of Eldralore, you, {currentPlayer.name}, are a keen apprentice to the wise alchemist, Master Alaric.\n...");
             }
             // Generate game lore/prologue
-            Console.WriteLine("[Press Enter whenever \"...\" is displayed to continue.]");
+            Console.WriteLine("[Press Enter (or any key) whenever \"...\" is displayed to continue.]");
             Program.ReadKey();
             Console.Clear();
             Print("[Mysterious Voice]: *** Everything that you hear from me, the Mysterious Voice, includes important information that will help you progress through your journey. \n...", 10, false);
             Program.ReadKey();
-            Print("[Mysterious Voice]: You can skip most of the text by pressing the SPACEBAR when the text is generating.\n...", 10, false);
+            Print("[Mysterious Voice]: You can skip most of the text in the game by pressing the SPACEBAR while the text is being generated.\n...", 10, false);
             Program.ReadKey();
             Print("[Mysterious Voice]: It is STRONGLY advised NOT to skip ANYTHING if it is your first time playing, or you might miss out on important information.\n...", 10, false);
             Program.ReadKey();
-            Print("[DISCLAIMER!]: There is NO saving system as of now. The game will likely take more than 20 minutes to finish if this is your first time playing.\n...", 10, false);
+            Print("[DISCLAIMER!]: There is NO saving system as of now. The game will likely take more than 30 minutes to finish if this is your first time playing.\n...", 10, false);
             Program.ReadKey();
             Console.Clear();
 
@@ -324,7 +322,7 @@ namespace AlchemyQuest
             },
             {
                 "Naturae Blessing Brew",
-                "- Receives a blessing from nature\n- Increases base damage by 2 and health by 50\n- Recipe:\n  - 1 Bottle (Basement)\n  - 3 Mystic Roots (Forest)\n  - 6 Azure Hydrangea Petal (Forest)\n  - 5 Enchanted Nectar (Meadow)"
+                "- Receive a blessing from Mother Nature\n- Increases base damage by 2 and health by 50\n- Recipe:\n  - 1 Bottle (Basement)\n  - 3 Mystic Roots (Forest)\n  - 6 Azure Hydrangea Petal (Forest)\n  - 5 Enchanted Nectar (Meadow)"
             },
             {
                 "Dark Pyroblast Infusion",
@@ -348,7 +346,7 @@ namespace AlchemyQuest
             },
             {
                 "???",
-                "- ? ? ?"
+                "- ? ? ?\n"
             }
         };
 
@@ -384,7 +382,7 @@ namespace AlchemyQuest
             },
             {
                 "Basement",
-                "- Description: My basement.\n- Ingredients:\n  - Bottle (36%)\n  - Silky Spiderwebs (57%)\n  - Golden Silky Spiderweb (5%)\n  - Ancient Grimoire of Fury (2%)"
+                "- Description: My basement.\n- Ingredients:\n  - Bottle (36%)\n  - Silky Spiderwebs (57%)\n  - Golden Silky Spiderweb (5%)\n  - Ancient Grimoire of Fury (2%)\n"
             }
         };
 
@@ -408,7 +406,7 @@ namespace AlchemyQuest
             },
             {
                 "???",
-                "- ? ? ?"
+                "- ? ? ?\n"
             }
         };
 
@@ -438,7 +436,7 @@ namespace AlchemyQuest
                 if (sectionChoice == "1") // Player chooses to read recipes
                 {
                     Console.Clear();
-                    Console.WriteLine("Recipes:");
+                    Console.WriteLine("\nRecipes:");
                     Console.WriteLine("============================");
                     ShowSection(recipes);
                     Console.WriteLine("-----");
@@ -450,7 +448,7 @@ namespace AlchemyQuest
                 else if (sectionChoice == "2") // Player chooses to read about locations
                 {
                     Console.Clear();
-                    Console.WriteLine("Locations:");
+                    Console.WriteLine("\nLocations:");
                     Console.WriteLine("============================");
                     ShowSection(locations);
                     Console.WriteLine("-----");
@@ -462,7 +460,7 @@ namespace AlchemyQuest
                 else if (sectionChoice == "3") // Player chooses to read about enemies
                 {
                     Console.Clear();
-                    Console.WriteLine("Enemies:");
+                    Console.WriteLine("\nEnemies:");
                     Console.WriteLine("============================");
                     ShowSection(enemies);
                     Console.WriteLine("-----");
@@ -1149,7 +1147,7 @@ namespace AlchemyQuest
                     if (dropOutcome <= 80 - Program.currentPlayer.luck) // 80% (-2% from Arcane Spirit Elixir --> +2% for grimoire)
                     {
                         // Normal enemy drop
-                        Console.WriteLine("You obtained 1 Holy Abyssal Serpent's Fangs!");
+                        Program.Print("You obtained 1 Holy Abyssal Serpent's Fangs!");
                         PlayerInventory.AddIngredient("Holy Abyssal Serpent's Fangs", 1);
                         Console.WriteLine($"You heal yourself back to max health with a healing spell. \n...");
                         Program.ReadKey();
@@ -1158,7 +1156,7 @@ namespace AlchemyQuest
                     else
                     {
                         // Rare drop
-                        Console.WriteLine("You obtained 1 Poseidon's Grimoire of Fury (Legendary)!");
+                        Program.Print("You obtained 1 Poseidon's Grimoire of Fury (Legendary)!");
                         PlayerInventory.AddIngredient("Poseidon's Grimoire of Fury", 1);
                         Console.WriteLine("Damage +0.3!");
                         Console.WriteLine("Health +4!");
@@ -1178,7 +1176,7 @@ namespace AlchemyQuest
                     if (dropOutcome <= 80 - Program.currentPlayer.luck)
                     {
                         // Normal enemy drop
-                        Console.WriteLine("You obtained 1 Moonlight Earthpulse Golem Core!");
+                        Program.Print("You obtained 1 Moonlight Earthpulse Golem Core!");
                         PlayerInventory.AddIngredient("Moonlight Earthpulse Golem Core", 1);
                         Console.WriteLine($"You heal yourself back to max health with a healing spell. \n...");
                         Program.ReadKey();
@@ -1187,7 +1185,7 @@ namespace AlchemyQuest
                     else
                     {
                         // Rare drop
-                        Console.WriteLine("You obtained 1 Gaia's Grimoire of Fury (Legendary)!");
+                        Program.Print("You obtained 1 Gaia's Grimoire of Fury (Legendary)!");
                         PlayerInventory.AddIngredient("Gaia's Grimoire of Fury", 1);
                         Console.WriteLine("Damage +0.2!");
                         Console.WriteLine("Health +6!");
