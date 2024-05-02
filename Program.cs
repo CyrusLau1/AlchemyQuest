@@ -54,31 +54,39 @@ namespace AlchemyQuest
 
         }
 
-        public static void Print(string text, int speed = 1)
-    {
-        // Text "animation"
-        foreach (char c in text) 
+        public static void Print(string text, int speed = 2, bool allowSkip = true)
         {
-            Console.Write(c); // Outputs each character individually
-            System.Threading.Thread.Sleep(speed); // Time between each character
+            // Text "animation"
+            foreach (char c in text)
+            {
+                Console.Write(c); // Outputs each character individually
+                System.Threading.Thread.Sleep(speed); // Time between each character
+
+                // Check if space bar is pressed and allowSkip is enabled
+                if (allowSkip && Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Spacebar)
+                {
+                    // Immediately displays text
+                    speed = 0;
+
+                }
+            }
+            Console.WriteLine();
         }
-        Console.WriteLine();
-    }
 
         public static void ReadKey()
         {
             // Prevents users from spamming keys before a Console.ReadKey()
             while(Console.KeyAvailable) 
             {
-                Console.ReadKey(false);
+                Console.ReadKey(true);
             }
-            Console.ReadKey();
+            Console.ReadKey(true);
         }
 
         public static void Start()
         {   
             // Welcome player and ask for name
-            Print("- Welcome to Alchemy Quest! -");
+            Print("- Welcome to Alchemy Quest! -", 50, false);
             Console.Write("Enter your name: ");
             currentPlayer.name = Console.ReadLine()?.Trim();
 
@@ -115,12 +123,21 @@ namespace AlchemyQuest
             Console.WriteLine("[Press Enter whenever \"...\" is displayed to continue.]");
             Program.ReadKey();
             Console.Clear();
+            Print("[Mysterious Voice]: *** Everything that you hear from me, the Mysterious Voice, includes important information that will help you progress through your journey. \n...", 10, false);
+            Program.ReadKey();
+            Print("[Mysterious Voice]: You can skip most of the text by pressing the SPACEBAR when the text is generating.\n...", 10, false);
+            Program.ReadKey();
+            Print("[Mysterious Voice]: It is STRONGLY advised NOT to skip ANYTHING if it is your first time playing, or you might miss out on important information.\n...", 10, false);
+            Program.ReadKey();
+            Print("[DISCLAIMER!]: There is NO saving system as of now. The game will likely take more than 20 minutes to finish if this is your first time playing.\n...", 10, false);
+            Program.ReadKey();
+            Console.Clear();
 
-            Print("Harvesting...", 50);
+            Print("Harvesting...", 50, false);
             Console.Clear();
-            Print("Harvesting...", 50);
+            Print("Harvesting...", 50, false);
             Console.Clear();
-            Print("Harvesting...", 50);
+            Print("Harvesting...", 50, false);
             Console.Clear();
             Print("In the heart of the Mystic Forest, you are gathering ingredients for potion brewing, surrounded by the gentle hum of magic. But the tranquility is shattered by a thunderous blast, ripping through the serenity. \n...");
             Program.ReadKey();
@@ -144,17 +161,15 @@ namespace AlchemyQuest
         public static void RepairLab()
         {
             // Player must repair the lab to continue
-            Print("As you survey the wreckage of the lab, your eyes catch sight of a piece of scrap paper lying amidst the debris. ");
-            Print("Picking it up, you find a jumble of letters hastily scribbled upon it: \"L C H Y E A M.\" \n...");
+            Print("As you survey the wreckage of the lab, your eyes catch sight of a piece of scrap paper lying amidst the debris.\nPicking it up, you find a jumble of letters hastily scribbled upon it: \"L C H Y E A M.\" \n...");
             Program.ReadKey();
-            Print("You discover that unscrambling these letters may hold the key to repairing the lab. ");
-            Print("[Mysterious Voice]: Unscramble the word and type it here: ");
+            Print("You discover that unscrambling these letters may hold the key to repairing the lab.");
+            Print("[Mysterious Voice]: Unscramble the word and type it here: ", 2, false);
             string? unscrambledWord = Console.ReadLine()?.ToLower().Trim();
             if (unscrambledWord == "alchemy")
             {
                 Console.Clear();
-                Print("The pieces of the lab start to shimmer and fuse together as you chant the word.");
-                Print("[Mysterious Voice]: Congratulations! You've repaired the lab. \n...");
+                Print("The pieces of the lab start to shimmer and fuse together as you chant the word.\n[Mysterious Voice]: Congratulations! You've repaired the lab. \n...");
                 Program.ReadKey();
                 Console.Clear();
                 // Continue the game
@@ -162,14 +177,13 @@ namespace AlchemyQuest
             else
             {
                 Console.Clear();
-                Print("[!] The word doesn't seem to match. Try again. [Tip: Use an online word unscrambler if needed.] \n...");
+                Print("[!] The word doesn't seem to match. Try again. [Tip: It is a word related to the game, starting with A and ending with Y. Use an online unscrambler if needed.] \n...");
                 Program.ReadKey();
                 Console.Clear();
                 RepairLab(); // Repeats
             }
         }
 
-        
     } // end class Program
 
     public class AlchemyLab
@@ -218,7 +232,7 @@ namespace AlchemyQuest
                 Console.WriteLine("[6] Exit Lab & Explore");
                 Console.WriteLine("=================================");
                 Console.Write("Your choice: "); // Asks player for choice
-                string? labChoice = Console.ReadLine();
+                string? labChoice = Console.ReadLine()?.Trim();
 
                 if (labChoice == "1")
                 {
@@ -418,7 +432,7 @@ namespace AlchemyQuest
             Console.WriteLine("[4] Stop Reading");
             Console.WriteLine("=======================");
             Console.Write("Your choice: ");
-            string? sectionChoice = Console.ReadLine();
+            string? sectionChoice = Console.ReadLine()?.Trim();
             while (true)
             {
                 if (sectionChoice == "1") // Player chooses to read recipes
@@ -636,14 +650,14 @@ namespace AlchemyQuest
                 Console.WriteLine($"[9] Return");
                 Console.WriteLine("=================================");
                 Console.Write("Your choice: ");
-                string? brewChoice = Console.ReadLine();
+                string? brewChoice = Console.ReadLine()?.ToLower().Trim();
 
                 if (brewChoice == "1" && !CanBrewPotion(noctisVisionIngredients) || brewChoice == "2" && !CanBrewPotion(aquaBreatherIngredients) || brewChoice == "3" && !CanBrewPotion(naturaeBlessingIngredients) || brewChoice == "4" && !CanBrewPotion(darkPyroblastIngredients) || brewChoice == "5" && !CanBrewPotion(arcaneSpiritIngredients) || brewChoice == "6" && !CanBrewPotion(levitasIngredients) || brewChoice == "7" && !CanBrewPotion(frostResistanceIngredients) || brewChoice == "8" && !CanBrewPotion(holyElixirIngredients) || Quests.HolyChickenQuestCompleted() && brewChoice == "holychicken" && !CanBrewPotion(holyRoastedChicken) || brewChoice == "secret" && !CanBrewPotion(malevolentElixirIngredients)) // ADD || OTHER POTIONS
                 {
                     // Not enough ingredients
                     Console.Clear();
                     Program.Print("Failure!", 50);
-                    Console.WriteLine("You do not have enough ingredients to brew this potion.\n...");
+                    Program.Print("[!] You do not have enough ingredients to brew this potion.\n...");
                     Program.ReadKey();
                     Console.Clear();
                 }
@@ -652,7 +666,7 @@ namespace AlchemyQuest
                 {
                     // Player has enough ingredients to brew the Noctis Vision Brew
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have brewed the Noctis Vision Brew. You have gained night vision and are now able to explore the Lunar Caverns.");
+                    Program.Print("[Mysterious Voice]: You have brewed the Noctis Vision Brew. You have gained night vision and are now able to explore the Lunar Caverns. It is recommended to brew the Aqua Breather potion next.");
                     Console.WriteLine("Hit rate +5%! \n...");
                     Program.currentPlayer.hitrate += 5;
                     PlayerInventory.inventory["Bottle"] -= 1;
@@ -668,7 +682,7 @@ namespace AlchemyQuest
                 {
                     // Player has enough ingredients to brew the Aqua Breather Potion
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have brewed the Aqua Breather Potion. You have gained water breathing are now able to explore the Sapphire Serenity Lake.");
+                    Program.Print("[Mysterious Voice]: You have brewed the Aqua Breather Potion. You have gained water breathing are now able to explore the Sapphire Serenity Lake. It is recommended to brew the Naturae Blessing Brew next, assuming you have alreayd brewed the Noctis Vision Brew.");
                     Console.WriteLine("Health +25! \n...");
                     Program.currentPlayer.health += 25;
                     Program.ReadKey();
@@ -681,7 +695,7 @@ namespace AlchemyQuest
                 {
                     // Player has enough ingredients to brew the Naturae Blessing Brew
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have brewed the Naturae Blessing Brew. You have received a blessing from Mother Nature.");
+                    Program.Print("[Mysterious Voice]: You have brewed the Naturae Blessing Brew. You have received a blessing from Mother Nature. It is recommended to brew the Dark Pyroblast Infusion next.");
                     Console.WriteLine("Damage +2!");
                     Console.WriteLine("Health +50! \n...");
                     Program.currentPlayer.damage += 2;
@@ -696,7 +710,7 @@ namespace AlchemyQuest
                 {
                     // Player has enough ingredients to brew the Dark Pyroblast Infusion
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have brewed the Dark Pyroblast Infusion. You can now shoot much stronger and more accurate fireballs.");
+                    Program.Print("[Mysterious Voice]: You have brewed the Dark Pyroblast Infusion. You can now shoot much stronger and more accurate fireballs. It is recommended to brew the Arcane Spirit Elixir next.");
                     Console.WriteLine("Hitrate +10%!");
                     Console.WriteLine("All attacks deal 2x damage! \n...");
                     Program.currentPlayer.hitrate += 10;
@@ -711,7 +725,7 @@ namespace AlchemyQuest
                 {
                     // Player has enough ingredients to brew the Arcane Spirit Elixir
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have brewed the Arcane Spirit Elixir. You have summoned the Arcane Spirit, which will aid you in your journey through the Arcane Ruins.");
+                    Program.Print("[Mysterious Voice]: You have brewed the Arcane Spirit Elixir. You have summoned the Arcane Spirit, which will aid you in your journey through the Arcane Ruins. It is recommended to brew the Levitas Elixir or Frost Resistance Potion next.");
                     Console.WriteLine("Damage +1!");
                     Console.WriteLine("Health +30!");
                     Console.WriteLine("Hitrate +5%!");
@@ -730,7 +744,7 @@ namespace AlchemyQuest
                 {
                     // Player has enough ingredients to brew the Levitas Elixir
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have brewed the Levitas Elixir. You can now levitate at will, and will be able to continue your journey up to the Ethereal Summit, if the Frost Resistance Potion is also brewed.");
+                    Program.Print("[Mysterious Voice]: You have brewed the Levitas Elixir. You can now levitate at will, and will be able to continue your journey up to the Ethereal Summit, if the Frost Resistance Potion is also brewed.");
                     Console.WriteLine("Health +30! \n...");
                     Program.currentPlayer.health += 30;
                     Program.ReadKey();
@@ -743,7 +757,7 @@ namespace AlchemyQuest
                 {
                     // Player has enough ingredients to brew the Frost Resistance Potion
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have brewed the Frost Resistance Potion. You have gained frost resistance, and will be able to continue your journey up to the Ethereal Summit, if the Levitas Elixir is also brewed.");
+                    Program.Print("[Mysterious Voice]: You have brewed the Frost Resistance Potion. You have gained frost resistance, and will be able to continue your journey up to the Ethereal Summit, if the Levitas Elixir is also brewed.");
                     Console.WriteLine("Damage +3! \n...");
                     Program.currentPlayer.damage += 3;
                     Program.ReadKey();
@@ -756,7 +770,7 @@ namespace AlchemyQuest
                 {
                     // Player has enough ingredients to brew the Holy Elixir of Restoration
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have finally brewed the Holy Elixir of Restoration! The heavens have bestowed upon you a holy blessing, and you will be able to save Master Alaric by disspelling his curse after defeating his kidnapper.");
+                    Program.Print("[Mysterious Voice]: You have finally brewed the Holy Elixir of Restoration! The heavens have bestowed upon you a holy blessing, and you will be able to save Master Alaric by disspelling his curse after defeating his kidnapper.");
                     Console.WriteLine("Damage +1!");
                     Console.WriteLine("Health +15! \n...");
                     Program.currentPlayer.damage += 1;
@@ -771,7 +785,7 @@ namespace AlchemyQuest
                 {
                     // Player has enough ingredients to brew the Holy Elixir of Restoration
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have produced a Holy Roasted Chicken, an essential ingredient in brewing the Holy Elixir of Restoration!");
+                    Program.Print("[Mysterious Voice]: You have produced a Holy Roasted Chicken, an essential ingredient in brewing the Holy Elixir of Restoration!");
                     PlayerInventory.AddIngredient("Holy Roasted Chicken", 1);
                     Program.ReadKey();
                     Console.Clear();
@@ -782,7 +796,7 @@ namespace AlchemyQuest
                 {
                     // Player has enough ingredients to brew the Holy Elixir of Restoration
                     Program.Print("Success!", 50);
-                    Console.WriteLine("You have brewed the Malevolent Elixir of Calamity! You are now probably strong enough to defeat the True Astral Enigma.");
+                    Program.Print("[Mysterious Voice]: You have brewed the Malevolent Elixir of Calamity! You are now probably strong enough to defeat the True Astral Enigma.");
                     Console.WriteLine("Damage +5!");
                     Console.WriteLine("Health +150!");
                     Console.WriteLine("Hit rate +1%! \n...");
@@ -799,7 +813,7 @@ namespace AlchemyQuest
                 {
                     // Player has already brewed the potion
                     Program.Print("Failure!", 50);
-                    Console.WriteLine("You have already brewed this potion! You can only brew each potion once.\n...");
+                    Program.Print("[!] You have already brewed this potion! You can only brew each potion once.\n...");
                     Program.ReadKey();
                     Console.Clear();
                 }
@@ -834,7 +848,7 @@ namespace AlchemyQuest
         {   
             Console.Clear();
             // Display potions already brewed by player
-            Console.WriteLine($"{Program.currentPlayer.name}'s Potions");
+            Program.Print($"{Program.currentPlayer.name}'s Potions");
             Console.WriteLine("=================================");
             
             for (int i = 0; i < brewedpotions.Count; i++)
@@ -962,7 +976,7 @@ namespace AlchemyQuest
 
         public static void BattleSecretBoss()
         {
-            Program.Print("? ? ?", 300);
+            Program.Print("? ? ?", 300, false);
             Program.Print("[You]: What is happening?\n...");
             Program.ReadKey();
             Console.Clear();
@@ -995,7 +1009,7 @@ namespace AlchemyQuest
             decimal currenthealth = Program.currentPlayer.health;
 
             // Battle enemies
-            while(h > 0)
+            while(h > 0 && Program.currentPlayer.health > 0)
             {   
                 // Display battle situation (player and enemy health) + player options
                 Console.WriteLine($"[{Program.currentPlayer.name}]: {currenthealth}/{Program.currentPlayer.health} HP  |  [{n}]: {h}/{healthE} HP");
@@ -1010,7 +1024,7 @@ namespace AlchemyQuest
                 int hitChance = rnd.Next(1, 101);
                 int enemyHitChance = rnd.Next(1, 101);
                 int fleeChance = rnd.Next(1, 101);
-                string? input = Console.ReadLine();
+                string? input = Console.ReadLine()?.Trim();
                 if(input == "1" && hitChance <= Program.currentPlayer.hitrate && enemyHitChance <= r)
                 {   
                     // Both player and enemy attack successful
@@ -1095,6 +1109,7 @@ namespace AlchemyQuest
                 Console.WriteLine("...");
                 Program.ReadKey();
                 Console.Clear();
+
             }
             
             if (currenthealth <= 0)
@@ -1102,8 +1117,9 @@ namespace AlchemyQuest
                 // Player dies, player loses 1 life
                 Program.Print($"DEFEAT... You have been slain by the {n}...", 150);
                 Program.ReadKey();
-                Program.Print($"[Mysterious Voice]: You have lost one life. You have {Program.currentPlayer.lives} more live(s).");
                 Program.currentPlayer.lives -= 1;
+                Program.Print($"[Mysterious Voice]: You have lost one life. You have {Program.currentPlayer.lives} more live(s).");
+                
 
                 if (Program.currentPlayer.lives <= 0) // If player loses all lives, game over
                 {   
@@ -1142,7 +1158,7 @@ namespace AlchemyQuest
                     else
                     {
                         // Rare drop
-                        Console.WriteLine("You obtained 1 Poseidon's Grimoire of Fury!");
+                        Console.WriteLine("You obtained 1 Poseidon's Grimoire of Fury (Legendary)!");
                         PlayerInventory.AddIngredient("Poseidon's Grimoire of Fury", 1);
                         Console.WriteLine("Damage +0.3!");
                         Console.WriteLine("Health +4!");
@@ -1171,7 +1187,7 @@ namespace AlchemyQuest
                     else
                     {
                         // Rare drop
-                        Console.WriteLine("You obtained 1 Gaia's Grimoire of Fury!");
+                        Console.WriteLine("You obtained 1 Gaia's Grimoire of Fury (Legendary)!");
                         PlayerInventory.AddIngredient("Gaia's Grimoire of Fury", 1);
                         Console.WriteLine("Damage +0.2!");
                         Console.WriteLine("Health +6!");
@@ -1199,7 +1215,7 @@ namespace AlchemyQuest
                         Program.ReadKey();
                         Program.Print("With the Astral Enigma defeated and balance restored, you continue your journey as a revered alchemist, using your skills to protect the realm and unlock its endless mysteries.\n...");
                         Program.ReadKey();
-                        Program.Print($"[Mysterious Voice]: Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the Good Ending. Thank you for playing!\n...");
+                        Program.Print($"[Mysterious Voice]: Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the Good Ending. Thank you for playing!\n...", 4, false);
                         Program.ReadKey();
                         System.Environment.Exit(0);
                     }
@@ -1216,7 +1232,7 @@ namespace AlchemyQuest
                         Program.ReadKey();
                         Program.Print("Master Alaric's absence serves as a constant reminder of the price of negligence, leaving you to ponder what could have been if only you had brewed the elixir and saved your mentor.\n...");
                         Program.ReadKey();
-                        Program.Print($"[Mysterious Voice]: Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the Bad Ending. Thank you for playing!\n...");
+                        Program.Print($"[Mysterious Voice]: Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the Bad Ending. Thank you for playing!\n...", 4, false);
                         Program.ReadKey();
                         System.Environment.Exit(0);
                     }
@@ -1240,7 +1256,7 @@ namespace AlchemyQuest
                     Program.ReadKey();
                     Program.Print("You have saved Eldralore from one evil, only to become another, forever bound by the Malevolent forces you dared to wield.\n...");
                     Program.ReadKey();
-                    Program.Print($"[Mysterious Voice]: Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the SECRET Ending. Thank you for playing!\n...");
+                    Program.Print($"[Mysterious Voice]: Congratulations, {Program.currentPlayer.name}! You have completed Alchemy Quest with the SECRET Ending. Thank you for playing!\n...", 4, false);
                     Program.ReadKey();
                     System.Environment.Exit(0);
                 }
@@ -1315,7 +1331,7 @@ namespace AlchemyQuest
             Console.WriteLine("[5] Return to Lab");
             Console.WriteLine("=================================");
             Console.Write("Your choice: ");
-            string? crossroadsChoice = Console.ReadLine();
+            string? crossroadsChoice = Console.ReadLine()?.Trim();
 
             switch (crossroadsChoice)
             {
@@ -1355,9 +1371,9 @@ namespace AlchemyQuest
                         // Player has restricted entry as potion not brewed
                         Program.Print("[You]: These ruins ahead look ancient and mysterious. But there's something unsettling about them...\n...");
                         Program.ReadKey();
-                        Program.Print("You glance at inscriptions carved on the stones. Deciphering those inscriptions could reveal hidden knowledge.\n...");
+                        Program.Print("You glance at inscriptions carved on the stones. Deciphering those inscriptions with the aid of a guardian of the ruins could reveal hidden knowledge.\n...");
                         Program.ReadKey();
-                        Program.Print("[You]: To enter the ruins and unveil the mysteries, I must summon forth an arcane spirit, a guardian of hidden knowledge, to decipher the hidden messages. [!] You do not have access to this location yet.\n...");
+                        Program.Print("[You]: So, to enter the ruins and unveil the mysteries, I must summon forth an arcane spirit to decipher the hidden messages. \n[!] You do not have access to this location yet.\n...");
                         Program.ReadKey();
                         Console.Clear();
                         Crossroads();
@@ -1420,7 +1436,7 @@ namespace AlchemyQuest
             Console.WriteLine("[6] Return to Lab");
             Console.WriteLine("=================================");
             Console.Write("Your choice: ");
-            string? forestChoice = Console.ReadLine();
+            string? forestChoice = Console.ReadLine()?.Trim();
 
             switch (forestChoice)
             {
@@ -1446,7 +1462,7 @@ namespace AlchemyQuest
                         Program.ReadKey();
                         Program.Print("You glance at the lake but notice it's really deep. Swimming down there without preparation sounds risky.\n...");
                         Program.ReadKey();
-                        Program.Print("[You]: Gotta gear up before diving in. I'd have to brew something that lets me breathe underwater. Can't wait to uncover the secrets down there! [!] You do not have access to this location yet.\n...");
+                        Program.Print("[You]: Gotta gear up before diving in. I'd have to brew something that lets me breathe underwater. Can't wait to uncover the secrets down there! \n[!] You do not have access to this location yet.\n...");
                         Program.ReadKey();
                         Console.Clear();
                         MysticForest();
@@ -1528,7 +1544,7 @@ namespace AlchemyQuest
             Console.WriteLine("[6] Return to Lab");
             Console.WriteLine("=================================");
             Console.Write("Your choice: ");
-            string? meadowChoice = Console.ReadLine();
+            string? meadowChoice = Console.ReadLine()?.Trim();
 
             switch (meadowChoice)
             {
@@ -1554,7 +1570,7 @@ namespace AlchemyQuest
                         Program.ReadKey();
                         Program.Print("Peering into the cavern's depths, you can't see anything but darkness. Exploring without preparation might be a bad idea.\n...");
                         Program.ReadKey();
-                        Program.Print("[You]: Gotta gear up before delving into these caverns. I'd have to brew something that lets me see in the dark. Can't wait to uncover the secrets inside! [!] You do not have access to this location yet.\n...");
+                        Program.Print("[You]: Gotta gear up before delving into these caverns. I'd have to brew something that lets me see in the dark. Can't wait to uncover the secrets inside! \n[!] You do not have access to this location yet.\n...");
                         Program.ReadKey();
                         Console.Clear();
                         StarlightMeadow();
@@ -1613,7 +1629,7 @@ namespace AlchemyQuest
             Console.WriteLine("[5] Return to Lab");
             Console.WriteLine("=================================");
             Console.Write("Your choice: ");
-            string? lakeChoice = Console.ReadLine();
+            string? lakeChoice = Console.ReadLine()?.Trim();
 
             switch (lakeChoice)
             {
@@ -1674,7 +1690,7 @@ namespace AlchemyQuest
             Console.WriteLine("[5] Return to Lab");
             Console.WriteLine("=================================");
             Console.Write("Your choice: ");
-            string? cavernsChoice = Console.ReadLine();
+            string? cavernsChoice = Console.ReadLine()?.Trim();
 
             switch (cavernsChoice)
             {
@@ -1733,7 +1749,7 @@ namespace AlchemyQuest
             Console.WriteLine("[5] Return to Lab");
             Console.WriteLine("=================================");
             Console.Write("Your choice: ");
-            string? ruinsChoice = Console.ReadLine();
+            string? ruinsChoice = Console.ReadLine()?.Trim();
 
             switch (ruinsChoice)
             {
@@ -1757,7 +1773,7 @@ namespace AlchemyQuest
                         Program.ReadKey();
                         Program.Print("You shiver in the biting cold wind. Climbing up there without proper preparation seems impossible.\n...");
                         Program.ReadKey();
-                        Program.Print("[You]: I'll need to brew a potion to resist the cold and maybe even something to help me float up higher. [!] You do not have access to this location yet.\n...");
+                        Program.Print("[You]: I'll need to brew a potion to resist the cold and maybe even something to help me float up higher. \n[!] You do not have access to this location yet.\n...");
                         Program.ReadKey();
                         Console.Clear();
                         Locations.ArcaneRuins();
@@ -1824,7 +1840,7 @@ namespace AlchemyQuest
             Console.WriteLine("[3] Return to Lab");
             Console.WriteLine("=================================");
             Console.Write("Your choice: ");
-            string? summitChoice = Console.ReadLine();
+            string? summitChoice = Console.ReadLine()?.Trim();
 
             switch (summitChoice)
             {
@@ -1895,7 +1911,7 @@ namespace AlchemyQuest
             Console.WriteLine("[4] Go back up to Lab");
             Console.WriteLine("=================================");
             Console.Write("Your choice: ");
-            string? basementChoice = Console.ReadLine();
+            string? basementChoice = Console.ReadLine()?.Trim();
 
             switch (basementChoice)
             {
@@ -1957,14 +1973,14 @@ namespace AlchemyQuest
         static int harvestingSpeed = 40; // Time to harvest ingredients (40ms for each character of "Harvesting..." --> 40ms*13 = 520ms (~0.5s))
         public static void HarvestForest()
         {
-            Program.Print("Harvesting...", harvestingSpeed);
+            Program.Print("Harvesting...", harvestingSpeed, false); // NOT SKIPPABLE
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
 
             if (harvestOutcome <= 10 + Program.currentPlayer.luck) // e.g. 10% (+2% if Arcane Spirit Elixir is brewed)
             {
-                Console.WriteLine("You obtained 1 Mystic Roots! \n...");
+                Console.WriteLine("You obtained 1 Mystic Roots (Rare)! \n...");
                 Program.ReadKey();
                 PlayerInventory.AddIngredient("Mystic Roots", 1);
             }
@@ -1992,14 +2008,14 @@ namespace AlchemyQuest
 
         public static void HarvestMeadow()
         {
-            Program.Print("Harvesting...", harvestingSpeed);
+            Program.Print("Harvesting...", harvestingSpeed, false);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
 
             if (harvestOutcome <= 15 + Program.currentPlayer.luck)
             {
-                Console.WriteLine("You obtained 1 Nebula Dust! \n...");
+                Console.WriteLine("You obtained 1 Nebula Dust (Rare)! \n...");
                 Program.ReadKey();
                 PlayerInventory.AddIngredient("Nebula Dust", 1);
             }
@@ -2027,7 +2043,7 @@ namespace AlchemyQuest
 
         public static void HarvestLake()
         {
-            Program.Print("Harvesting...", harvestingSpeed);
+            Program.Print("Harvesting...", harvestingSpeed, false);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
@@ -2046,7 +2062,7 @@ namespace AlchemyQuest
             }
             else if (harvestOutcome <= 55 + Program.currentPlayer.luck)
             {
-                Console.WriteLine("You obtained 1 Holy Water! \n...");
+                Console.WriteLine("You obtained 1 Holy Water (Super Rare)! \n...");
                 Program.ReadKey();
                 PlayerInventory.AddIngredient("Holy Water", 1);
             }
@@ -2062,7 +2078,7 @@ namespace AlchemyQuest
 
         public static void HarvestCaverns()
         {
-            Program.Print("Harvesting...", harvestingSpeed);
+            Program.Print("Harvesting...", harvestingSpeed, false);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
@@ -2081,7 +2097,7 @@ namespace AlchemyQuest
             }
             else if (harvestOutcome <= 65 + Program.currentPlayer.luck)
             {
-                Console.WriteLine("You obtained 1 Earthpulse Stonefruit! \n...");
+                Console.WriteLine("You obtained 1 Earthpulse Stonefruit (Super Rare)! \n...");
                 Program.ReadKey();
                 PlayerInventory.AddIngredient("Earthpulse Stonefruit", 1);
             }
@@ -2097,7 +2113,7 @@ namespace AlchemyQuest
         
         public static void HarvestRuins()
         {
-            Program.Print("Harvesting...", harvestingSpeed);
+            Program.Print("Harvesting...", harvestingSpeed, false);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
@@ -2116,7 +2132,7 @@ namespace AlchemyQuest
             }
             else if (harvestOutcome <= 60 + Program.currentPlayer.luck)
             {
-                Console.WriteLine("You obtained 1 Arcane Relic Fragments! \n...");
+                Console.WriteLine("You obtained 1 Arcane Relic Fragments (Super Rare)! \n...");
                 Program.ReadKey();
                 PlayerInventory.AddIngredient("Arcane Relic Fragments", 1);
             }
@@ -2132,7 +2148,7 @@ namespace AlchemyQuest
 
         public static void SearchBasement()
         {
-            Program.Print("Searching...", harvestingSpeed);
+            Program.Print("Searching...", harvestingSpeed, false);
 
             // Determine the harvest outcome based on probability, and displays what is harvested to player
             double harvestOutcome = new Random().NextDouble() * 100;
@@ -2151,7 +2167,7 @@ namespace AlchemyQuest
             }
             else if (harvestOutcome <= 43 + Program.currentPlayer.luck)
             {
-                Console.WriteLine("You obtained 1 Ancient Grimoire of Fury! \n...");
+                Console.WriteLine("You obtained 1 Ancient Grimoire of Fury (Legendary)! \n...");
                 Program.ReadKey();
                 PlayerInventory.AddIngredient("Ancient Grimoire of Fury", 1);
                 Program.currentPlayer.damage += 0.1m;
@@ -2663,4 +2679,3 @@ namespace AlchemyQuest
         }
     } // end class Quests
 }
-
