@@ -330,7 +330,7 @@ namespace AlchemyQuest
             },
             {
                 "Arcane Spirit Elixir",
-                "- Summons a strong companion which aids in battle and helps decipher the hidden messages at the ruins' entrance, grants the ability to traverse the ruins\n- Helps search for rare ingredients and grimoires\n- Increases base damage by 1, health by 30 and hit rate by 5%\n- Luck for all grimoires and rare ingredients (5% or below) +2%. (Failure chance/Most common ingredient -2%)\n- Required for Arcane Ruins\n- Recipe:\n  - 1 Bottle (Basement)\n  - 2 Mystic Roots (Forest)\n  - 2 Nebula Dust (Meadow)\n  - 2 Abyssal Serpent Scale (Lake)\n  - 2 Glowing Crystal (Caverns)"
+                "- Summons a strong companion which aids in battle and helps decipher the hidden messages at the ruins' entrance, grants the ability to traverse the ruins\n- Helps search for rare ingredients and grimoires\n- Increases base damage by 1, health by 30 and hit rate by 5%\n- Luck for all grimoires and rare ingredients +2% (Luck for grimoires dropped by enemies + 10%). (Failure chance/Most common ingredient -2%)\n- Required for Arcane Ruins\n- Recipe:\n  - 1 Bottle (Basement)\n  - 2 Mystic Roots (Forest)\n  - 2 Nebula Dust (Meadow)\n  - 2 Abyssal Serpent Scale (Lake)\n  - 2 Glowing Crystal (Caverns)"
             },
             {
                 "Levitas Elixir",
@@ -727,7 +727,7 @@ namespace AlchemyQuest
                     Console.WriteLine("Damage +1!");
                     Console.WriteLine("Health +30!");
                     Console.WriteLine("Hitrate +5%!");
-                    Console.WriteLine("Increased chances of obtaining grimoires and rare ingredients (+2%). \n...");
+                    Console.WriteLine("Increased chances of obtaining grimoires and rare ingredients from havresting (+2%). Grimoires dropped from enemies luck +10%. \n...");
                     Program.currentPlayer.health += 30;
                     Program.currentPlayer.damage += 1;
                     Program.currentPlayer.hitrate += 5;
@@ -1144,7 +1144,7 @@ namespace AlchemyQuest
                 else if (n == "Holy Abyssal Serpent")
                 {   
                     double dropOutcome = new Random().NextDouble() * 100;
-                    if (dropOutcome <= 80 - Program.currentPlayer.luck) // 80% (-2% from Arcane Spirit Elixir --> +2% for grimoire)
+                    if (dropOutcome <= 80 - (Program.currentPlayer.luck * 5) ) // 80% (-10% from Arcane Spirit Elixir (2%*5) --> +10% for grimoire)
                     {
                         // Normal enemy drop
                         Program.Print("You obtained 1 Holy Abyssal Serpent's Fangs!");
@@ -1173,7 +1173,7 @@ namespace AlchemyQuest
                 else if (n == "Moonlight Earthpulse Golem")
                 {   
                     double dropOutcome = new Random().NextDouble() * 100;
-                    if (dropOutcome <= 80 - Program.currentPlayer.luck)
+                    if (dropOutcome <= 80 - (Program.currentPlayer.luck * 5) )
                     {
                         // Normal enemy drop
                         Program.Print("You obtained 1 Moonlight Earthpulse Golem Core!");
@@ -1713,6 +1713,7 @@ namespace AlchemyQuest
                 // Player chooses to return to Starlight Meadow
                     Program.Print("You decide to return to the Starlight Meadow. \n...");
                     Program.ReadKey();
+                    Console.Clear();
                     Locations.StarlightMeadow();
                     break;
                 
@@ -1924,7 +1925,7 @@ namespace AlchemyQuest
                     {
                         // Player hasn't completed diary quest and is unable to access diary
                         Program.Print("[Mysterious Voice]: You have not unlocked this option yet. Complete Silky Spider Queen's quest to unlock.\n...");
-                        Console.ReadKey();
+                        Program.ReadKey();
                         Console.Clear();
                         Basement();
                     }
